@@ -1,0 +1,13 @@
+{
+    "name": "projet5/blog",
+    "description": "a blog with php",
+    "type": "project",
+    "authors": [
+        {
+            "name": "mahedes",
+            "email": "mahevadessart@gmail.com"
+        }
+    ],
+    "minimum-stability": "stable",
+    "require": {}
+}
