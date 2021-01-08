@@ -38,7 +38,8 @@ require '../../model/Comment.php';
     $comment = new Comment();
     $comments = $comment->getCommentsFromPost(1);
     while($comment = $comments->fetch())
-    {
+    {   
+        if ($comment['validation_status'] == 1) {
     ?>
     <div>
         <p>
@@ -50,10 +51,11 @@ require '../../model/Comment.php';
     </div>
     <br>
     <?php
+        }
     }
     $comments->closeCursor();
     ?>
-    <a href="index.php">Retour à l'accueil</a>
+    <a href="../../index.php">Retour à l'accueil</a>
 </div>
 </body>
 </html>
