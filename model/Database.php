@@ -6,7 +6,7 @@ class Database
     const DB_USER = 'root';
     const DB_PASS = 'root';
 
-    public function getConnection()
+    protected function getConnection()
     {
         try{
             $connection = new PDO(self::DB_HOST, self::DB_USER, self::DB_PASS);
