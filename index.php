@@ -18,11 +18,7 @@ require 'model/Post.php';
     <div>
         <h1>Lorem ipsum</h1>
         <p>Lorem ipsum</p>
-        <?php
 
-        $db = new Database();
-        echo $db->getConnection();
-        ?>
     </div>
 </body>
 </html>

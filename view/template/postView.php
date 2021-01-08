@@ -1,8 +1,7 @@
 <?php
-//On inclut le fichier dont on a besoin (ici à la racine de notre site)
 require '../../model/Database.php';
-//Ne pas oublier d'ajouter le fichier Article.php
 require '../../model/Post.php';
+require '../../model/Comment.php';
 ?>
 
 <!DOCTYPE html>
@@ -33,7 +32,30 @@ require '../../model/Post.php';
     }
     $posts->closeCursor();
     ?>
-    <a href="index.php">Retour à l'accueil</a>
+
+    <h2>Commentaires</h2>
+    <?php
+    $comment = new Comment();
+    $comments = $comment->getCommentsFromPost(1);
+    while($comment = $comments->fetch())
+    {   
+        if ($comment['validation_status'] == 1) {
+    ?>
+    <div>
+        <p>
+            <?= htmlspecialchars($comment['author']);?> :
+            ( <?= htmlspecialchars($comment['dayMonthYear']);?>
+            at <?= htmlspecialchars($comment['hour'] )?> ) <br>
+            <?= htmlspecialchars($comment['content']);?>
+        </p>
+    </div>
+    <br>
+    <?php
+        }
+    }
+    $comments->closeCursor();
+    ?>
+    <a href="../../index.php">Retour à l'accueil</a>
 </div>
 </body>
 </html>
