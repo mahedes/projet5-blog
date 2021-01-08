@@ -1,7 +1,7 @@
 <?php
 //On inclut le fichier dont on a besoin (ici à la racine de notre site)
 require 'model/Database.php';
-require 'model/Post.php';
+require 'model/PostManager.php';
 ?>
 <!DOCTYPE html>
 <html lang="fr">

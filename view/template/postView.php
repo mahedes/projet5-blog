@@ -1,7 +1,10 @@
 <?php
 require '../../model/Database.php';
-require '../../model/Post.php';
-require '../../model/Comment.php';
+require '../../model/PostManager.php';
+require '../../model/CommentManager.php';
+
+use App\model\Manager\PostManager;
+use App\model\Manager\CommentManager;
 ?>
 
 <!DOCTYPE html>
@@ -15,7 +18,7 @@ require '../../model/Comment.php';
 <div>
     <h1>Page Post</h1>
     <?php
-    $post = new Post();
+    $post = new PostManager();
     $posts = $post->getPosts();
     while($post = $posts->fetch())
     {
@@ -34,8 +37,14 @@ require '../../model/Comment.php';
     ?>
 
     <h2>Commentaires</h2>
+    <h3>Ajouter un commentaire</h3>
+    <form action="commentaires_post.php" method="post">
+        <input type="text" name="authot" ><br>
+        <textarea name="message"></textarea><br>
+        <button type="submit" value="Submit">Submit</button>
+    </form>
     <?php
-    $comment = new Comment();
+    $comment = new CommentManager();
     $comments = $comment->getCommentsFromPost(1);
     while($comment = $comments->fetch())
     {   

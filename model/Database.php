@@ -1,4 +1,7 @@
 <?php
+namespace App\model\Manager;
+use PDO;
+use Exception;
 
 class Database
 {

@@ -1,6 +1,7 @@
 <?php
+namespace App\model\Manager;
 
-class Post
+class PostManager extends Database
 {
     public function getPosts()
     {

@@ -1,6 +1,7 @@
 <?php
+namespace App\model\Manager;
 
-class Comment extends Database
+class CommentManager extends Database
 {
     public function getCommentsFromPost($postId)
     {
