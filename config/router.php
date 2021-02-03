@@ -2,30 +2,25 @@
 
 namespace App\Config;
 
-use App\Controller\HomeController;
-use App\Controller\BlogController;
+use App\Controller\FrontController;
+
 use Exception;
 
 class Router
 {
   public function run()
   {
+    $controller = new FrontController;
     try {
       if (isset($_GET['action'])) {
         if ($_GET['action'] === 'blog') {
-          $controller = new BlogController;
           echo $controller->blog();
+        } else if ($_GET['action'] === 'article') {
+          echo $controller->post();
         } else {
-          echo 'page inconnue';
-        }
-      } else if (isset($_GET['action'])) {
-        if ($_GET['action'] === 'article') {
-          echo 'page article';
-        } else {
-          echo 'page inconnue';
+          echo 'page inconnue2';
         }
       } else {
-        $controller = new HomeController;
         echo $controller->home();
       }
     } catch (Exception $e) {
