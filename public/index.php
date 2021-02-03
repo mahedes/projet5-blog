@@ -1,24 +1,14 @@
 <?php
+// error_reporting(E_ALL);
 //On inclut le fichier dont on a besoin (ici à la racine de notre site)
-require 'model/Database.php';
-require 'model/PostManager.php';
-?>
-<!DOCTYPE html>
-<html lang="fr">
-<head>
-    <meta charset="utf-8">
-    <title>Projet 5 - Blog</title>
-</head>
+// require 'model/Database.php';
+// require 'model/PostManager.php';
+require '../vendor/autoload.php';
+require '../config/router.php';
+require '../config/view.php';
 
-<body>
-    <nav>
-        <a href="/">Home</a>
-        <a href="view/template/postView.php?id=1">Post</a>
-    </nav>
-    <div>
-        <h1>Lorem ipsum</h1>
-        <p>Lorem ipsum</p>
 
-    </div>
-</body>
-</html>
+//echo $twig->render('blog.html.twig');
+
+$router = new App\Config\Router();
+$router->run();
