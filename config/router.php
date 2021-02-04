@@ -3,6 +3,7 @@
 namespace App\Config;
 
 use App\Controller\FrontController;
+use \App\model\Manager\PostManager;
 
 use Exception;
 

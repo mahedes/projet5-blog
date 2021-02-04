@@ -1,5 +1,7 @@
 <?php
-namespace App\model\Manager;
+
+namespace App\model;
+
 use PDO;
 use Exception;
 
@@ -11,15 +13,12 @@ class Database
 
     protected function getConnection()
     {
-        try{
+        try {
             $connection = new PDO(self::DB_HOST, self::DB_USER, self::DB_PASS);
             $connection->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
             return $connection;
+        } catch (Exception $errorConnection) {
+            die('Error database connection :' . $errorConnection->getMessage());
         }
-        catch(Exception $errorConnection)
-        {
-            die ('Error database connection :'.$errorConnection->getMessage());
-        }
-
     }
 }
