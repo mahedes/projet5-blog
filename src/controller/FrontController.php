@@ -22,8 +22,12 @@ class FrontController
       'posts' => $posts
     ]);
   }
-  public function post()
+  public function post($id)
   {
-    return View::twig()->render('post.html.twig');
+    $post = new PostManager();
+    $postId = $post->getPost($id);
+    return View::twig()->render('post.html.twig', [
+      'postId' => $postId
+    ]);
   }
 }
