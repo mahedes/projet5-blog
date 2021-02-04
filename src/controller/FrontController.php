@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use \App\config\View;
+use \App\model\PostManager;
 
 class FrontController
 {
@@ -12,7 +13,14 @@ class FrontController
   }
   public function blog()
   {
-    return View::twig()->render('blog.html.twig');
+
+    //return View::twig()->render('blog.html.twig');
+    View::twig()->load('blog.html.twig');
+    $post = new PostManager();
+    $posts = $post->getPosts();
+    return View::twig()->render('blog.html.twig', [
+      'posts' => $posts
+    ]);
   }
   public function post()
   {
