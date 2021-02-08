@@ -17,9 +17,10 @@ class Router
         if ($_GET['action'] === 'blog') {
           echo $controller->blog();
         } else if ($_GET['action'] === 'article') {
-          echo $controller->post();
+          echo $controller->post($_GET['id']);
         } else {
           echo 'page inconnue2';
+          echo $_GET['id'];
         }
       } else {
         echo $controller->home();
