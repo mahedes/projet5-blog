@@ -4,6 +4,10 @@ namespace App\model;
 
 class CommentManager extends Database
 {
+  public function build($parametre): Comment
+  {
+    // new Post suivi de ts les setters
+  }
   public function getCommentsFromPost($postId)
   {
     $db = new Database();
