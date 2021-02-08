@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use \App\config\View;
 use \App\model\PostManager;
+use \App\model\CommentManager;
 use \App\model\Post;
 
 class FrontController
@@ -14,12 +15,9 @@ class FrontController
   }
   public function blog()
   {
-    //return View::twig()->render('blog.html.twig');
     View::twig()->load('blog.html.twig');
     $post = new PostManager();
     $posts = $post->getPosts();
-    // var_dump($posts);
-    // die("abc");
     return View::twig()->render('blog.html.twig', [
       'posts' => $posts
     ]);
@@ -29,8 +27,19 @@ class FrontController
   {
     $post = new PostManager();
     $postId = $post->getPost($id);
+
+    $getComments = new CommentManager();
+
+    $comments = $getComments->getCommentsFromPost($id);
     return View::twig()->render('post.html.twig', [
-      'postId' => $postId
+      'postId' => $postId,
+      'comments' => $comments
     ]);
+    // }
+    // public function comment()
+    // {
+    //   $newComment = new CommentManager();
+    //   $comments = $newComment->addComment();
+    // }
   }
 }

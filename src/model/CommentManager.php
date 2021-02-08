@@ -4,20 +4,47 @@ namespace App\model;
 
 class CommentManager extends Database
 {
-  public function build($parametre): Comment
+  public function build($row): Comment
   {
-    // new Post suivi de ts les setters
+    $comments = new Comment;
+    $comments->setId($row['id']);
+    $comments->setAuthor($row['author']);
+    $comments->setDayMonthYear($row['dayMonthYear']);
+    $comments->setHour($row['hour']);
+    $comments->setContent($row['content']);
+    $comments->setValidationStatus($row['validationStatus']);
+    return $comments;
   }
-  public function getCommentsFromPost($postId)
+  public function getCommentsFromPost(int $commentId)
   {
     $db = new Database();
     $connection = $db->getConnection();
-    $result = $connection->prepare('SELECT c.id id, c.id_user, c.id_post, DATE_FORMAT(c.date_created, "%d/%m/%Y") AS dayMonthYear, DATE_FORMAT(c.date_created, "%Hh%imin%ss") AS hour, c.content content, c.validation_status validation_status, u.pseudo author FROM comments c INNER JOIN users u ON u.id = c.id_user WHERE c.id_post = ? ORDER BY date_created DESC');
+    $result = $connection->prepare('SELECT c.id id, c.id_user, c.id_post, DATE_FORMAT(c.created_at, "%d/%m/%Y") AS dayMonthYear, DATE_FORMAT(c.created_at, "%Hh%imin%ss") AS hour, c.content content, c.validation_status validationStatus, u.pseudo author FROM comments c INNER JOIN users u ON u.id = c.id_user WHERE c.id_post = ? ORDER BY created_at DESC');
     $result->execute(
       array(
-        $postId
+        $commentId
       )
     );
-    return $result;
+    foreach ($result as $row) {
+      $commentId = $row['id'];
+      $comments[$commentId] = $this->build($row);
+    }
+    $result->closeCursor();
+    return $comments;
   }
+
+  // public function addComment()
+  // {
+  //   $db = new Database();
+  //   $connection = $db->getConnection();
+  //   $req = $connection->prepare('INSERT INTO comments(id_user, id_post, created_ad, content, validation_status) VALUES(:id_user, :id_post, :created_ad, :content, :validation_status)');
+
+  //   $req->execute(array(
+  //     'id_user' => 1,
+  //     'id_post' => 2,
+  //     'created_ad' => date("Y-m-d H:i:s"),
+  //     'content' => "Hello",
+  //     'validation_status' => false
+  //   ));
+  // }
 }
