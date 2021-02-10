@@ -35,11 +35,11 @@ class FrontController
       'postId' => $postId,
       'comments' => $comments
     ]);
-    // }
-    // public function comment()
-    // {
-    //   $newComment = new CommentManager();
-    //   $comments = $newComment->addComment();
-    // }
+  }
+
+  public function newComment($id, $coms)
+  {
+    $newComment = new CommentManager();
+    $comments = $newComment->addComment($id, $coms);
   }
 }

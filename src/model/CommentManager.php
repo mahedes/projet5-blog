@@ -33,18 +33,18 @@ class CommentManager extends Database
     return $comments;
   }
 
-  // public function addComment()
-  // {
-  //   $db = new Database();
-  //   $connection = $db->getConnection();
-  //   $req = $connection->prepare('INSERT INTO comments(id_user, id_post, created_ad, content, validation_status) VALUES(:id_user, :id_post, :created_ad, :content, :validation_status)');
-
-  //   $req->execute(array(
-  //     'id_user' => 1,
-  //     'id_post' => 2,
-  //     'created_ad' => date("Y-m-d H:i:s"),
-  //     'content' => "Hello",
-  //     'validation_status' => false
-  //   ));
-  // }
+  public function addComment(int $postId, $commentsContent)
+  {
+    $db = new Database();
+    $connection = $db->getConnection();
+    $req = $connection->prepare('INSERT INTO comments (id_user, id_post, created_at, content, validation_status) VALUES(:id_user, :id_post, :createdAt, :content, :validationStatus)');
+    $req->execute(array(
+      'id_user' => 1,
+      'id_post' => $postId,
+      'createdAt' => date("Y-m-d H:i:s"),
+      'content' => $commentsContent,
+      'validationStatus' => 0
+    ));
+    header('Location: index.php?action=article&id=' . $postId);
+  }
 }
