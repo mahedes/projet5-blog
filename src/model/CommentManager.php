@@ -7,12 +7,12 @@ class CommentManager extends Database
   public function build($row): Comment
   {
     $comments = new Comment;
-    $comments->setId($row['id']);
-    $comments->setAuthor($row['author']);
-    $comments->setDayMonthYear($row['dayMonthYear']);
-    $comments->setHour($row['hour']);
-    $comments->setContent($row['content']);
-    $comments->setValidationStatus($row['validationStatus']);
+    $comments->setId($row['idComment']);
+    // $comments->setAuthor($row['author']);
+    // $comments->setDayMonthYear($row['dayMonthYear']);
+    // $comments->setHour($row['hour']);
+    $comments->setContent($row['commentContent']);
+    // $comments->setValidationStatus($row['validationStatus']);
     return $comments;
   }
   public function getCommentsFromPost(int $commentId)
@@ -33,6 +33,9 @@ class CommentManager extends Database
     return $comments;
   }
 
+  /**  
+   * @todo : Make a link with admin
+   */
   public function addComment(int $postId, $commentsContent)
   {
     $db = new Database();

@@ -17,9 +17,9 @@ class Router
         if ($_GET['action'] === 'blog') {
           echo $controller->blog();
         } else if ($_GET['action'] === 'article') {
-          echo $controller->post($_GET['id']);
+          echo $controller->post((int) $_GET['id']);
         } else if ($_GET['action'] === 'add-comment') {
-          echo $controller->newComment($_GET['postId'], $_POST['coms']);
+          echo $controller->newComment((int) $_GET['postId'], $_POST['coms']);
         } else {
           echo 'page inconnue';
         }

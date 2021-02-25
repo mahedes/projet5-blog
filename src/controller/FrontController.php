@@ -23,17 +23,18 @@ class FrontController
     ]);
   }
 
-  public function post($id)
+  public function post(int $id)
   {
-    $post = new PostManager();
-    $postId = $post->getPost($id);
+    // SQL avec jointures
+    $postManager = new PostManager();
+    $postId = $postManager->getPostWithComments($id);
 
-    $getComments = new CommentManager();
+    // $commentManager = new CommentManager();
+    // $comments = $commentManager->getCommentsFromPost($id);
 
-    $comments = $getComments->getCommentsFromPost($id);
     return View::twig()->render('post.html.twig', [
       'postId' => $postId,
-      'comments' => $comments
+      // 'comments' => $comments
     ]);
   }
 
