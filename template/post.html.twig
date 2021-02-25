@@ -3,63 +3,54 @@
 {% block title %}Post{% endblock %}
 
 {% block body %}
-<!-- Portfolio Modals -->
-    <div>
-
-    </div>
-        <div class="container post">
-            <div class="row">
-                <div class="col-lg-8 col-lg-offset-2">
-                    <div class="modal-body">
-                        <h2>{{ postId.title}}</h2>
-                        <hr class="star-primary">
-                        <img src="img/portfolio/cake.png" class="img-responsive img-centered" alt="">
-                        <p>{{ postId.chapo}}</p>
-                        <ul class="list-inline item-details">
-                            <li>Author:
-                                <strong>{{ postId.author}}</strong>
-                            </li>
-                            <li>Date:
-                                <strong><a href="http://startbootstrap.com">{{ postId.updatedAt}}</a>
-                                </strong>
-                            </li>
-                        </ul>
-                        <p>
-                            {{ postId.content}}
-                        </p>
-                    </div>
-                    {# <form name="sentMessage" id="contactForm" method="post" action="index.php?action=addComment">
-                        <h3>Let a comment</h3>
-                        <div class="row control-group">
-                            <div class="form-group col-xs-12 floating-label-form-group controls">
-                                <label>Comment</label>
-                                <textarea name="content" rows="5" class="form-control" placeholder="Write your comment here" id="message" required data-validation-required-message="Please enter a message."></textarea>
-                            </div>
-                        </div>
-                        <br>
-                        <div id="success"></div>
-                        <div class="row">
-                            <div class="form-group col-xs-12">
-                                <input type="submit" class="btn btn-success btn-lg" value="Send">
-                            </div>
-                        </div>
-                    </form> #}
-                    <form action="index.php?action=add-comment&amp;postId={{postId.id}}" method="post">
-                            <textarea name="coms"></textarea><br>
-                            <button type="submit" value="Valider">Envoyer</button>
-                    </form>
-                    {% for comment in comments %}
-
-  
-                        {% if comment.validationStatus == true %}
-                            <div>
-                                <p>Author : {{ comment.author }} | {{ comment.dayMonthYear }} - {{ comment.hour }}</p>
-                                <p>{{ comment.content }}</p>
-                                <hr>
-                            </div>
-                        {% endif %}
-                    {% endfor %}
+    <div class="container post">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2">
+                <div class="modal-body">
+                    <h2>{{ postId.title}}</h2>
+                    <hr class="star-primary">
+                    <img src="img/portfolio/cake.png" class="img-responsive img-centered" alt="">
+                    <p>{{ postId.chapo}}</p>
+                    <ul class="list-inline item-details">
+                        <li>Author:
+                            <strong>{{ postId.author}}</strong>
+                        </li>
+                        <li>Date:
+                            <strong><a href="http://startbootstrap.com">{{ postId.updatedAt}}</a>
+                            </strong>
+                        </li>
+                    </ul>
+                    <p>
+                        {{ postId.content}}
+                    </p>
                 </div>
+
+                <form id="contactForm" action="index.php?action=add-comment&amp;postId={{postId.id}}" method="post">
+                    <h3>Let a comment</h3>
+                    <div class="row control-group">
+                        <div class="form-group col-xs-12 floating-label-form-group controls">
+                            <label>Comment</label>
+                            <textarea name="coms" rows="5" class="form-control" placeholder="Write your comment here" id="message" required></textarea>
+                        </div>
+                    </div>
+                    <br>
+                    <div class="row">
+                        <div class="form-group col-xs-12">
+                            <input type="submit" class="btn btn-success btn-lg" value="Send">
+                        </div>
+                    </div>
+                </form>
+                
+                {% for comment in postId.comments %}
+                    {% if comment.validationStatus == true %}
+                        <div>
+                            <p>Author : {{ comment.author }} | {{ comment.createdAt|date("m/d/Y \\à g:ia")  }}</p>
+                            <p>{{ comment.content }}</p>
+                            <hr>
+                        </div>
+                    {% endif %} 
+                {% endfor %}
             </div>
         </div>
+    </div>
 {% endblock %}

@@ -26,7 +26,7 @@ class Post
     $this->id = $id;
   }
 
-  public function getTitle(): ?string // retourne null ou string
+  public function getTitle(): ?string // ?string : retourne null ou string
   {
     return $this->title;
   }
@@ -91,13 +91,8 @@ class Post
   {
     return $this->comments;
   }
-  public function addComments(Comment $comments) // Comment = parametre de fonction à revoir
+  public function addComments(Comment $comments)
   {
     $this->comments[] = $comments;
   }
 }
-
-// if (!$this->products->contains($product)) {
-//   $this->products[] = $product;
-//   $product->setCategory($this);
-// }

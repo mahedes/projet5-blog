@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use \App\config\View;
 use \App\model\PostManager;
+use \App\model\UserManager;
 use \App\model\CommentManager;
 use \App\model\Post;
 
@@ -25,22 +26,42 @@ class FrontController
 
   public function post(int $id)
   {
-    // SQL avec jointures
     $postManager = new PostManager();
     $postId = $postManager->getPostWithComments($id);
 
-    // $commentManager = new CommentManager();
-    // $comments = $commentManager->getCommentsFromPost($id);
-
     return View::twig()->render('post.html.twig', [
       'postId' => $postId,
-      // 'comments' => $comments
     ]);
   }
 
-  public function newComment($id, $coms)
+  public function newComment(int $id, $coms)
   {
     $newComment = new CommentManager();
     $comments = $newComment->addComment($id, $coms);
+  }
+
+  public function register()
+  {
+    return View::twig()->render('registration.html.twig');
+  }
+  public function registerSubmit($pseudo, $name, $firstname, $email, $password)
+  {
+    $userManager = new UserManager();
+    $newUser = $userManager->register($pseudo, $name, $firstname, $email, $password);
+    header('Location: ../public/index.php');
+    return $this->view->render('registration.html.twig');
+  }
+
+  public function login()
+  {
+    return View::twig()->render('login.html.twig');
+  }
+  public function loginSubmit($pseudo, $password)
+  {
+    var_dump($pseudo, $password);
+    // $userManager = new UserManager();
+    // $newUser = $userManager->register($pseudo, $password);
+    // header('Location: ../public/index.php');
+    // return $this->view->render('registration.html.twig');
   }
 }

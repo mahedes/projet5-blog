@@ -1,15 +1,18 @@
 <?php
-// mettre tous les attributs et getter/setter pour la table post ( à faire pr chaque table )
+
 namespace App\model;
 
 class Comment
 {
   private $id;
   private $author;
-  private $dayMonthYear;
-  private $hour;
+  private $createdAt;
   private $content;
   private $validationStatus;
+  /**
+   * @var Post
+   */
+  private $post;
 
   public function getId()
   {
@@ -29,22 +32,13 @@ class Comment
     $this->author = $author;
   }
 
-  public function getDayMonthYear()
+  public function getCreatedAt()
   {
-    return $this->dayMonthYear;
+    return $this->createdAt;
   }
-  public function setDayMonthYear($dayMonthYear)
+  public function setCreatedAt($createdAt)
   {
-    $this->dayMonthYear = $dayMonthYear;
-  }
-
-  public function getHour()
-  {
-    return $this->hour;
-  }
-  public function setHour($hour)
-  {
-    $this->hour = $hour;
+    $this->createdAt = $createdAt;
   }
 
   public function getContent()
@@ -63,5 +57,14 @@ class Comment
   public function setValidationStatus($validationStatus)
   {
     $this->validationStatus = $validationStatus;
+  }
+
+  public function getPost()
+  {
+    return $this->post;
+  }
+  public function setPost(Post $post)
+  {
+    $this->post = $post;
   }
 }
