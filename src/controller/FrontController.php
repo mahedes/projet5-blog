@@ -16,7 +16,7 @@ class FrontController
   }
   public function blog()
   {
-    View::twig()->load('blog.html.twig');
+    //View::twig()->load('blog.html.twig');
     $post = new PostManager();
     $posts = $post->getPosts();
     return View::twig()->render('blog.html.twig', [
@@ -80,5 +80,18 @@ class FrontController
   {
     session_destroy();
     header('Location: ../public/index.php');
+  }
+
+  public function admin()
+  {
+    if ($_SESSION && $_SESSION['auth'] === 'ROLE_ADMIN') {
+      $post = new PostManager();
+      $posts = $post->getPosts();
+      return View::twig()->render('admin/dashboard.html.twig', [
+        'posts' => $posts
+      ]);
+    } else {
+      return View::twig()->render('home.html.twig');
+    }
   }
 }

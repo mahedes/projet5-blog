@@ -30,6 +30,8 @@ class Router
           echo $controller->loginSubmit($_POST['email'], $_POST['password']);
         } else if ($_GET['action'] === 'logout') {
           echo $controller->logout();
+        } else if ($_GET['action'] === 'admin') {
+          echo $controller->admin();
         } else {
           echo 'page inconnue';
         }

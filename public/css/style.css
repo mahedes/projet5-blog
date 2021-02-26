@@ -10,6 +10,13 @@
   padding-bottom: 15px; 
   padding-top: 15px; 
 }
+.admin-title {
+  text-align: center;
+  margin-bottom: 50px;
+}
+.admin-tab {
+  margin-top: 20px;
+}
 .login-create-account {
   padding-left: 1em;
   font-size: 1.5em;
