@@ -17,9 +17,19 @@ class Router
         if ($_GET['action'] === 'blog') {
           echo $controller->blog();
         } else if ($_GET['action'] === 'article') {
-          echo $controller->post($_GET['id']);
+          echo $controller->post((int) $_GET['id']);
         } else if ($_GET['action'] === 'add-comment') {
-          echo $controller->newComment($_GET['postId'], $_POST['coms']);
+          echo $controller->newComment((int) $_GET['postId'], $_POST['coms']);
+        } else if ($_GET['action'] === 'register') {
+          echo $controller->register();
+        } else if ($_GET['action'] === 'registrationSubmitted') {
+          echo $controller->registerSubmit($_POST['pseudo'], $_POST['name'], $_POST['firstname'], $_POST['email'], $_POST['password']);
+        } else if ($_GET['action'] === 'login') {
+          echo $controller->login();
+        } else if ($_GET['action'] === 'loginSubmitted') {
+          echo $controller->loginSubmit($_POST['email'], $_POST['password']);
+        } else if ($_GET['action'] === 'logout') {
+          echo $controller->logout();
         } else {
           echo 'page inconnue';
         }

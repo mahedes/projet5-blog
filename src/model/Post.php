@@ -1,6 +1,7 @@
 <?php
-// mettre tous les attributs et getter/setter pour la table post ( à faire pr chaque table )
+
 namespace App\model;
+
 
 class Post
 {
@@ -11,22 +12,26 @@ class Post
   private $chapo;
   private $content;
   private $author;
+  /**
+   * @var array < Comment >
+   */
+  private $comments;
 
   public function getId()
   {
     return $this->id;
   }
-  public function setId(int $id)
+  public function setId($id)
   {
     $this->id = $id;
   }
 
-  public function getTitle()
+  public function getTitle(): ?string // ?string : retourne null ou string
   {
     return $this->title;
   }
 
-  public function setTitle(string $title)
+  public function setTitle($title)
   {
     $this->title = $title;
   }
@@ -79,5 +84,15 @@ class Post
   public function setAuthor($author)
   {
     $this->author = $author;
+  }
+
+  // OneToMany
+  public function getComments()
+  {
+    return $this->comments;
+  }
+  public function addComments(Comment $comments)
+  {
+    $this->comments[] = $comments;
   }
 }

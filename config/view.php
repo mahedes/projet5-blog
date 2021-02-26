@@ -14,7 +14,7 @@ class View
         'cache' => false,
         'debug' => true
       ]);
-      self::$twig->addExtension(new \Twig\Extension\DebugExtension); //active fonction dump
+      self::$twig->addExtension(new \Twig\Extension\DebugExtension); // active function dump
     }
     return self::$twig;
   }

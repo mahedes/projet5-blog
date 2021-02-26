@@ -4,12 +4,25 @@ namespace App\model;
 
 class PostManager extends Database
 {
-    public function build($row): Post
+    private $db;
+    private $connection;
+
+    public function __construct()
+    {
+        $this->db = new Database();
+        $this->connection = $this->db->getConnection();
+    }
+
+    /**
+     * @todo: convertir heure avec createFormFormat()
+     */
+    public function build(array $row): Post
     {
         $post = new Post;
         $post->setId($row['id']);
         $post->setTitle($row['title']);
-        $post->setCreatedAt($row['createdAt']);
+        $createAt = $row['createdAt'];
+        $post->setCreatedAt($createAt);
         $post->setUpdatedAt($row['updatedAt']);
         $post->setChapo($row['chapo']);
         $post->setContent($row['content']);
@@ -19,9 +32,7 @@ class PostManager extends Database
 
     public function getPosts()
     {
-        $db = new Database();
-        $connection = $db->getConnection();
-        $result = $connection->query(
+        $result = $this->connection->query(
             'SELECT p.id id, p.title title, p.created_at createdAt, p.updated_at updatedAt, p.short_description chapo, p.content content, p.id_user, u.pseudo author FROM posts p INNER JOIN users u ON u.id = p.id_user ORDER BY id DESC'
         );
         foreach ($result as $row) {
@@ -32,16 +43,33 @@ class PostManager extends Database
         return $posts;
     }
 
-    public function getPost($postId)
+    public function getPostWithComments($id)
     {
-        $db = new Database();
-        $connection = $db->getConnection();
-        $result = $connection->prepare('SELECT p.id id, p.title title, p.created_at createdAt, p.updated_at updatedAt, p.short_description chapo, p.content content, p.id_user, u.pseudo author FROM posts p INNER JOIN users u ON u.id = p.id_user WHERE p.id = ?');
-        $result->execute([
-            $postId
-        ]);
-        $data = $result->fetch(\PDO::FETCH_ASSOC);
+        $result = $this->connection->prepare('SELECT p.id id, p.title title, p.created_at createdAt, p.updated_at updatedAt, p.short_description chapo, p.content content, p.id_user, u.pseudo author, c.id idComment, c.id_post, c.id_user commentUser, c.created_at createdAt, c.content commentContent, c.validation_status validationStatus
+                                        FROM posts p 
+                                        INNER JOIN users u 
+                                        ON u.id = p.id_user 
+                                        LEFT JOIN comments c 
+                                        ON c.id_post = p.id 
+                                        WHERE p.id = ?');
 
-        return $this->build($data);
+        $result->execute([
+            $id
+        ]);
+
+        $data = $result->fetchAll(\PDO::FETCH_ASSOC);
+        var_dump($data);
+        die();
+        $modelPost = $this->build($data[0]);
+
+        foreach ($data as $row) {
+            if ($row['idComment'] !== null) {
+                $commentManager = new CommentManager;
+                $comment = $commentManager->build($row);
+                $modelPost->addComments($comment);
+            }
+        }
+
+        return $modelPost;
     }
 }
