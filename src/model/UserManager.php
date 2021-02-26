@@ -2,6 +2,7 @@
 
 namespace App\model;
 
+use Exception;
 use PDOException;
 
 class UserManager extends Database
@@ -18,14 +19,14 @@ class UserManager extends Database
   public function build($row): User
   {
     $users = new User;
-    $users->setId($row['idUser']);
+    $users->setId($row['id']);
     $users->setPseudo($row['pseudo']);
     $users->setName($row['name']);
     $users->setFirstname($row['firstname']);
     $users->setEmail($row['email']);
     $users->setPassword($row['password']);
-    $users->setAdminStatus($row['adminStatus']);
-    $createAt = $row['createdAt'];
+    $users->setAdminStatus($row['admin_status']);
+    $createAt = $row['created_at'];
     $users->setCreatedAt($createAt);
     return $users;
   }
@@ -38,10 +39,22 @@ class UserManager extends Database
       'name' => $name,
       'firstname' => $firstname,
       'email' => $email,
-      'password' => $password,
+      'password' => password_hash($password, PASSWORD_DEFAULT),
       'adminStatus' => 0,
       'createdAt' => date("Y-m-d H:i:s")
     ));
     header('Location: index.php');
+  }
+
+  public function login($email)
+  {
+    $result = $this->connection->query(
+      'SELECT * FROM users WHERE email = \'' . $email . '\''
+    );
+
+    $data = $result->fetchAll(\PDO::FETCH_ASSOC);
+    $modelUser = $this->build($data[0]);
+
+    return $modelUser;
   }
 }

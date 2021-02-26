@@ -27,7 +27,9 @@ class Router
         } else if ($_GET['action'] === 'login') {
           echo $controller->login();
         } else if ($_GET['action'] === 'loginSubmitted') {
-          echo $controller->loginSubmit($_POST['pseudo'], $_POST['password']);
+          echo $controller->loginSubmit($_POST['email'], $_POST['password']);
+        } else if ($_GET['action'] === 'logout') {
+          echo $controller->logout();
         } else {
           echo 'page inconnue';
         }

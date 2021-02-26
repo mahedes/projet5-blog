@@ -14,8 +14,8 @@ class User
   private $firstname;
   private $email;
   private $password;
-  private $admin_status;
-  private $createdAd;
+  private $adminStatus;
+  private $createdAt;
 
   public function getId()
   {
@@ -73,11 +73,11 @@ class User
 
   public function getAdminStatus()
   {
-    return $this->admin_status;
+    return $this->adminStatus;
   }
-  public function setAdminStatus($admin_status)
+  public function setAdminStatus($adminStatus)
   {
-    $this->admin_status = $admin_status;
+    $this->adminStatus = $adminStatus;
   }
 
   public function getCreatedAt()

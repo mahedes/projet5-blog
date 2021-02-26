@@ -28,7 +28,6 @@ class FrontController
   {
     $postManager = new PostManager();
     $postId = $postManager->getPostWithComments($id);
-
     return View::twig()->render('post.html.twig', [
       'postId' => $postId,
     ]);
@@ -56,12 +55,30 @@ class FrontController
   {
     return View::twig()->render('login.html.twig');
   }
-  public function loginSubmit($pseudo, $password)
+  public function loginSubmit($email, $password)
   {
-    var_dump($pseudo, $password);
-    // $userManager = new UserManager();
-    // $newUser = $userManager->register($pseudo, $password);
-    // header('Location: ../public/index.php');
-    // return $this->view->render('registration.html.twig');
+    $userManager = new UserManager();
+    $userLogin = $userManager->login($email);
+
+    if (password_verify($_POST['password'], $userLogin->getPassword())) {
+
+      $_SESSION['pseudo'] = $userLogin->getPseudo();
+      $_SESSION['name'] = $userLogin->getName();
+      $_SESSION['firstname'] = $userLogin->getFirstname();
+      $_SESSION['email'] = $userLogin->getEmail();
+
+      if ((int) $userLogin->getAdminStatus() === 1) {
+        $_SESSION['auth'] = 'ROLE_ADMIN';
+      } else {
+        $_SESSION['auth'] = 'ROLE_USER';
+      }
+    }
+    header('Location: ../public/index.php');
+  }
+
+  public function logout()
+  {
+    session_destroy();
+    header('Location: ../public/index.php');
   }
 }
