@@ -58,8 +58,6 @@ class PostManager extends Database
         ]);
 
         $data = $result->fetchAll(\PDO::FETCH_ASSOC);
-        var_dump($data);
-        die();
         $modelPost = $this->build($data[0]);
 
         foreach ($data as $row) {

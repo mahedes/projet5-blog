@@ -24,7 +24,7 @@
                         {{ postId.content}}
                     </p>
                 </div>
-
+                {% if session %}
                 <form id="contactForm" action="index.php?action=add-comment&amp;postId={{postId.id}}" method="post">
                     <h3>Let a comment</h3>
                     <div class="row control-group">
@@ -40,6 +40,10 @@
                         </div>
                     </div>
                 </form>
+                {% else %}
+                    <h3 class="alert alert-danger" role="alert">Let a comment >> <a href="index.php?action=login">Login required</a></h3>
+                    
+                {% endif %}
                 
                 {% for comment in postId.comments %}
                     {% if comment.validationStatus == true %}
