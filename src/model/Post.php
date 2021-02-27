@@ -7,11 +7,15 @@ class Post
 {
   private $id;
   private $title;
+  private $author;
   private $createdAt;
   private $updatedAt;
   private $chapo;
   private $content;
-  private $author;
+  // /**
+  //  * @var array < User >
+  //  */
+  // private $author;
   /**
    * @var array < Comment >
    */
@@ -80,19 +84,31 @@ class Post
   {
     return $this->author;
   }
-
   public function setAuthor($author)
   {
     $this->author = $author;
   }
+  // public function setAuthor(User $author)
+  // {
+  //   $this->author[] = $author;
+  // }
 
   // OneToMany
   public function getComments()
   {
     return $this->comments;
   }
-  public function addComments(Comment $comments)
+  public function setComments(Comment $comments)
   {
     $this->comments[] = $comments;
   }
+
+  // public function getUser()
+  // {
+  //   return $this->user;
+  // }
+  // public function setUser(User $user)
+  // {
+  //   $this->$user[] = $user;
+  // }
 }

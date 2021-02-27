@@ -2,6 +2,8 @@
 
 namespace App\Config;
 
+use \App\config\Session;
+
 class View
 {
   private static $twig;
@@ -14,6 +16,7 @@ class View
         'cache' => false,
         'debug' => true
       ]);
+      self::$twig->addGlobal('session', $_SESSION);
       self::$twig->addExtension(new \Twig\Extension\DebugExtension); // active function dump
     }
     return self::$twig;

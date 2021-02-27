@@ -21,15 +21,23 @@
                 <li class="page-scroll">
                     <a href="index.php?action=blog">Blog</a>
                 </li>
-                <li class="page-scroll">
-                    <a href="index.php?action=register">Inscription</a>
-                </li>
-                <li class="page-scroll">
-                    <a href="index.php?action=login">Connexion</a>
-                </li>
-                <li class="page-scroll">
-                    <a href="index.php?action=logout">Déconnexion</a>
-                </li>
+
+                {% if session %}
+                    <li class="page-scroll">
+                        <a href="index.php?action=logout">Déconnexion</a>
+                    </li>
+                    <li class="page-scroll">
+                       <p class="alert alert-info" role="alert" class="hello">Bonjour {{ session["pseudo"] }} !</p>
+                    </li>
+                {% else %}
+                    <li class="page-scroll">
+                        <a href="index.php?action=register">Inscription</a>
+                    </li>
+                    <li class="page-scroll">
+                        <a href="index.php?action=login">Connexion</a>
+                    </li>
+                {% endif %}
+
             </ul>
         </div>
         <!-- /.navbar-collapse -->

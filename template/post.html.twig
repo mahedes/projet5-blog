@@ -2,7 +2,10 @@
 
 {% block title %}Post{% endblock %}
 
-{% block body %}
+{% block body %} 
+
+
+
     <div class="container post">
         <div class="row">
             <div class="col-lg-8 col-lg-offset-2">
@@ -16,15 +19,23 @@
                             <strong>{{ postId.author}}</strong>
                         </li>
                         <li>Date:
-                            <strong><a href="http://startbootstrap.com">{{ postId.updatedAt}}</a>
+                            <strong> 
+                                <a href="#">{{ postId.createdAt|date("m/d/Y \\a\\t g:ia")}}</a>
                             </strong>
                         </li>
+                        {% if postId.updatedAt != null %}
+                        <li>Last updated:
+                            <strong> 
+                                <a href="#">{{ postId.updatedAt|date("m/d/Y \\a\\t g:ia")}}</a>
+                            </strong>
+                        </li>
+                        {% endif %}
                     </ul>
                     <p>
                         {{ postId.content}}
                     </p>
                 </div>
-
+                {% if session %}
                 <form id="contactForm" action="index.php?action=add-comment&amp;postId={{postId.id}}" method="post">
                     <h3>Let a comment</h3>
                     <div class="row control-group">
@@ -40,7 +51,12 @@
                         </div>
                     </div>
                 </form>
+                {% else %}
+                    <h3 class="alert alert-danger" role="alert">Let a comment >> <a href="index.php?action=login">Login required</a></h3>
+                    
+                {% endif %}
                 
+
                 {% for comment in postId.comments %}
                     {% if comment.validationStatus == true %}
                         <div>

@@ -2,7 +2,7 @@
 <footer class="text-center">
     <div class="footer-above">
         <div class="container">
-            <div class="row">
+            <div class="row footer1">
                 <div class="footer-col col-md-4">
                     <h3>Location</h3>
                     <p>Paris/IDF
@@ -26,6 +26,14 @@
                     <h3>About Freelancer</h3>
                     <p><a href="download/cv.pdf" download="cv_web_developer">>> Télécharger le CV << </a></p>
                 </div>
+
+                 {% if session["auth"] == 'ROLE_ADMIN' %}
+                    <div class="footer-col col-md-4">
+                        <h3>Espace Admin</h3>
+                        <p><a href="index.php?action=admin">Accès Administration</a></p>
+                    </div>
+                {% endif %}          
+
             </div>
         </div>
     </div>
@@ -33,7 +41,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-12">
-                    Copyright &copy; Your Website 2016
+                    Copyright &copy; Your Website 2021
                 </div>
             </div>
         </div>
