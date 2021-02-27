@@ -25,11 +25,11 @@ class Comment
 
   public function getAuthor()
   {
-    return $this->author;
+    return $this->authorComment;
   }
-  public function setAuthor($author)
+  public function setAuthor($authorComment)
   {
-    $this->author = $author;
+    $this->authorComment = $authorComment;
   }
 
   public function getCreatedAt()

@@ -16,7 +16,7 @@
                     <a href="#page-top"></a>
                 </li>
                 <li class="page-scroll">
-                    <a href="index.php">Accueil</a>
+                    <a href="index.php">Home</a>
                 </li>
                 <li class="page-scroll">
                     <a href="index.php?action=blog">Blog</a>
@@ -24,17 +24,17 @@
 
                 {% if session %}
                     <li class="page-scroll">
-                        <a href="index.php?action=logout">Déconnexion</a>
+                        <a href="index.php?action=logout">Logout</a>
                     </li>
                     <li class="page-scroll">
-                       <p class="alert alert-info" role="alert" class="hello">Bonjour {{ session["pseudo"] }} !</p>
+                       <p class="alert alert-info" role="alert" class="hello">Hi {{ session["pseudo"] }} !</p>
                     </li>
                 {% else %}
                     <li class="page-scroll">
-                        <a href="index.php?action=register">Inscription</a>
+                        <a href="index.php?action=register">Register</a>
                     </li>
                     <li class="page-scroll">
-                        <a href="index.php?action=login">Connexion</a>
+                        <a href="index.php?action=login">Login</a>
                     </li>
                 {% endif %}
 

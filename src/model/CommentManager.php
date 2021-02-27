@@ -19,7 +19,7 @@ class CommentManager extends Database
   {
     $comments = new Comment;
     $comments->setId($row['id']);
-    $comments->setAuthor($row['author']);
+    $comments->setAuthor($row['authorComment']);
     $comments->setPost($row['post']);
     $createAt = $row['createdAt'];
     $comments->setCreatedAt($createAt);
@@ -33,7 +33,7 @@ class CommentManager extends Database
   {
     try {
       $result = $this->connection->query(
-        'SELECT c.id, c.id_user, c.id_post post, c.created_at createdAt, c.content commentContent, c.validation_status validationStatus, u.pseudo author 
+        'SELECT c.id, c.id_user, c.id_post post, c.created_at createdAt, c.content commentContent, c.validation_status validationStatus, u.pseudo authorComment 
         FROM comments c 
         LEFT JOIN users u 
         ON u.id = c.id_user 

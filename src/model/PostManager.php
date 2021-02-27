@@ -47,38 +47,45 @@ class PostManager extends Database
 
     public function getPostWithComments($id)
     {
-        // $result = $this->connection->prepare('SELECT p.id id, p.title title, p.created_at createdAt, p.updated_at updatedAt, p.short_description chapo, p.content content, p.id_user, u.id author, u.pseudo, c.id idComment, c.id_post post, c.id_user commentUser, c.created_at createdAt, c.content commentContent, c.validation_status validationStatus
-        $result = $this->connection->prepare('SELECT p.id id, p.title title, p.created_at createdAt, p.updated_at updatedAt, p.short_description chapo, p.content content, p.id_user, u.id author, u.pseudo author, u.name, u.firstname, u.email, u.password, u.admin_status, u.created_at, c.id idComment, c.id_post post, c.id_user commentUser, c.created_at createdAt, c.content commentContent, c.validation_status validationStatus
+        try {
+            // $result = $this->connection->prepare('SELECT p.id id, p.title title, p.created_at createdAt, p.updated_at updatedAt, p.short_description chapo, p.content content, p.id_user, u.id author, u.pseudo, c.id idComment, c.id_post post, c.id_user commentUser, c.created_at createdAt, c.content commentContent, c.validation_status validationStatus
+            $result = $this->connection->prepare('SELECT p.id id, p.title title, p.created_at createdAt, p.updated_at updatedAt, p.short_description chapo, p.content content, p.id_user, u.id, us.id, us.pseudo authorComment, u.pseudo author, u.name, u.firstname, u.email, u.password, u.admin_status, u.created_at, c.id idComment, c.id_post post, c.id_user, c.created_at createdAt, c.content commentContent, c.validation_status validationStatus
                                         FROM posts p 
                                         LEFT JOIN users u 
-                                        ON u.id = p.id_user 
+                                        ON u.id = p.id_user
                                         LEFT JOIN comments c 
-                                        ON c.id_post = p.id 
+                                        ON c.id_post = p.id
+                                        LEFT JOIN users us 
+                                        ON us.id = c.id_user
                                         WHERE p.id = ?');
 
-        $result->execute([
-            $id
-        ]);
+            $result->execute([
+                $id
+            ]);
 
-        $data = $result->fetchAll(\PDO::FETCH_ASSOC);
-        $modelPost = $this->build($data[0]);
+            $data = $result->fetchAll(\PDO::FETCH_ASSOC);
+            $modelPost = $this->build($data[0]);
 
-        // $userManager = new UserManager;
-        // $userPost = $userManager->build($data[0]);
-        // $modelPost->setAuthor($userPost);
+            // $userManager = new UserManager;
+            // $userPost = $userManager->build($data[0]);
+            // $modelPost->setAuthor($userPost);
 
-        foreach ($data as $row) {
-            if ($row['idComment'] !== null) {
-                $commentManager = new CommentManager;
-                $comment = $commentManager->build($row);
-                // if ($row['author'] !== null) {
-                //     $userComment = $userManager->build($row);
-                //     $comment->setAuthorComment($userComment);
-                // }
-                $modelPost->setComments($comment);
+            foreach ($data as $row) {
+                if ($row['idComment'] !== null) {
+                    $commentManager = new CommentManager;
+                    $comment = $commentManager->build($row);
+                    // if ($row['author'] !== null) {
+                    //     $userComment = $userManager->build($row);
+                    //     $comment->setAuthorComment($userComment);
+                    // } 
+                    $modelPost->setComments($comment);
+                }
             }
+
+            return $modelPost;
+        } catch (PDOException $e) {
+            die($e->getmessage());
         }
-        return $modelPost;
     }
 
     /**

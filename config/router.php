@@ -46,8 +46,10 @@ class Router
           echo $controller->editPostSubmitted((int) $_GET['id'], $_POST['title'], $_POST['chapo'], $_POST['content']);
         } else if ($_GET['action'] === 'admin/delete-post') {
           echo $controller->deletePostSubmitted((int) $_GET['id']);
+        } else if ($_GET['action'] === 'contactFormSubmitted') {
+          echo $controller->sendMail($_POST['name'], $_POST['email'], $_POST['message']);
         } else {
-          echo 'page inconnue';
+          echo $controller->home();
         }
       } else {
         echo $controller->home();
