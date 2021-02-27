@@ -43,7 +43,6 @@ class UserManager extends Database
       'adminStatus' => 0,
       'createdAt' => date("Y-m-d H:i:s")
     ));
-    header('Location: index.php');
   }
 
   public function login($email)

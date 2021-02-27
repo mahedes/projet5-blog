@@ -5,7 +5,7 @@ namespace App\model;
 class Comment
 {
   private $id;
-  private $author;
+  private $authorComment;
   private $createdAt;
   private $content;
   private $validationStatus;
@@ -63,7 +63,8 @@ class Comment
   {
     return $this->post;
   }
-  public function setPost(Post $post)
+  // public function setPost(Post $post)
+  public function setPost($post)
   {
     $this->post = $post;
   }

@@ -32,6 +32,18 @@ class Router
           echo $controller->logout();
         } else if ($_GET['action'] === 'admin') {
           echo $controller->admin();
+        } else if ($_GET['action'] === 'allow-comment') {
+          echo $controller->allowComment((int) $_GET['idComment']);
+        } else if ($_GET['action'] === 'delete-comment') {
+          echo $controller->deleteComment((int) $_GET['idComment']);
+        } else if ($_GET['action'] === 'admin/add-post') {
+          echo $controller->newPost();
+        } else if ($_GET['action'] === 'admin/add-post/newPostSubmitted') {
+          echo $controller->newPostSubmitted($_POST['title'], $_POST['chapo'], $_POST['content']);
+        } else if ($_GET['action'] === 'admin/edit-post') {
+          echo $controller->editPost((int) $_GET['id']);
+        } else if ($_GET['action'] === 'admin/edit-post/editPostSubmitted') {
+          echo $controller->editPostSubmitted((int) $_GET['id'], $_POST['title'], $_POST['chapo'], $_POST['content']);
         } else {
           echo 'page inconnue';
         }

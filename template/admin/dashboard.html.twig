@@ -3,14 +3,47 @@
 {% block title %}Espace Administration{% endblock %}
 
 {% block body %}
-  <h1 class="admin-title">Espace Administration</h1>
+<h1 class="admin-title">Espace Administration</h1>
+<h2 class="admin-title">VALIDATION OF COMMENTS</h2>
+<table class="table table-dark table-striped admin-tab">
+  <thead>
+    <tr>
+    <th scope="col">#</th>
+      <th scope="col">Author</th>
+      <th scope="col">Publish at</th>
+      <th scope="col">Post Number</th>
+      <th scope="col">Content</th>
+      <th scope="col">Action</th>
+    </tr>
+  </thead>
+  <tbody>
+  
+    {% for comment in comments %} 
+      {% if comment.validationStatus == false %}
+      <tr>
+        <td>{{ comment.id }}</td>
+        <td>{{ comment.author }}</td>
+        <td>{{ comment.createdAt }}</td>
+        <td>{{ comment.post }}</td>
+        <td>{{ comment.content }}</td>
+        <td>
+            <a href="index.php?action=allow-comment&amp;idComment={{comment.id}}" type="button" class="btn btn-success">Validate</a>
+            <a href="index.php?action=delete-comment&amp;idComment={{comment.id}}" type="button" class="btn btn-danger">Delete</a>
+        </td>
+      </tr>
+      {% endif %}
+    {% endfor %}
+  </tbody>
+</table>
 
-  <a href="" type="button" class="btn btn-success">Add new post</a>
+  <h2 class="admin-title">Posts List</h2>
+  <a href="index.php?action=admin/add-post" type="button" class="btn btn-success">Add new post</a>
 
   <table class="table table-dark table-striped admin-tab">
   <thead>
     <tr>
       <th scope="col">#</th>
+      <th scope="col">Author</th>
       <th scope="col">Title</th>
       <th scope="col">Created at</th>
       <th scope="col">Last update</th>
@@ -18,15 +51,16 @@
     </tr>
   </thead>
   <tbody>
-    {% for post in posts %}
+    {% for post in posts %} 
     <tr>
       <th scope="row">{{ post.id }}</th>
+      <td>{{ post.author }}</td>
       <td>{{ post.title }}</td>
       <td>{{ post.createdAt }}</td>
       <td>{{ post.updatedAt }}</td>
       <td>
           <a href="index.php?action=article&amp;id={{post.id}}" type="button" class="btn btn-info">Show</a>
-          <a href="" type="button" class="btn btn-warning">Edit</a>
+          <a href="index.php?action=admin/edit-post&amp;id={{post.id}}" type="button" class="btn btn-warning">Edit</a>
           <a href="" type="button" class="btn btn-danger">Delete</a>
       </td>
     </tr>

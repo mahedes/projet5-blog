@@ -2,7 +2,10 @@
 
 {% block title %}Post{% endblock %}
 
-{% block body %}
+{% block body %} 
+
+
+
     <div class="container post">
         <div class="row">
             <div class="col-lg-8 col-lg-offset-2">
@@ -45,6 +48,7 @@
                     
                 {% endif %}
                 
+
                 {% for comment in postId.comments %}
                     {% if comment.validationStatus == true %}
                         <div>
