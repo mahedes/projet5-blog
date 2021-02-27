@@ -2,8 +2,6 @@
 
 namespace App\Config;
 
-use \App\config\Session;
-
 class View
 {
   private static $twig;

@@ -14,6 +14,7 @@ class FrontController
   {
     return View::twig()->render('home.html.twig');
   }
+
   public function blog()
   {
     $post = new PostManager();
@@ -43,6 +44,7 @@ class FrontController
   {
     return View::twig()->render('registration.html.twig');
   }
+
   public function registerSubmit($pseudo, $name, $firstname, $email, $password)
   {
     $userManager = new UserManager();
@@ -54,13 +56,13 @@ class FrontController
   {
     return View::twig()->render('login.html.twig');
   }
+
   public function loginSubmit($email, $password)
   {
     $userManager = new UserManager();
     $userLogin = $userManager->login($email);
 
     if (password_verify($_POST['password'], $userLogin->getPassword())) {
-
       $_SESSION['id'] = $userLogin->getId();
       $_SESSION['pseudo'] = $userLogin->getPseudo();
       $_SESSION['name'] = $userLogin->getName();
@@ -126,8 +128,6 @@ class FrontController
   public function newPostSubmitted($title, $chapo, $content)
   {
     if ($_SESSION && $_SESSION['auth'] === 'ROLE_ADMIN') {
-
-
       $newPost = new PostManager();
       $postAdded = $newPost->addPost($_SESSION['id'], $title, $chapo, $content);
       header('Location: index.php?action=admin');
@@ -137,10 +137,8 @@ class FrontController
   public function editPost(int $id)
   {
     if ($_SESSION && $_SESSION['auth'] === 'ROLE_ADMIN') {
-
       $postManager = new PostManager();
       $postId = $postManager->getPostWithComments($id);
-
       return View::twig()->render('admin/edit.html.twig', [
         'post' => $postId,
       ]);
@@ -150,8 +148,6 @@ class FrontController
   public function editPostSubmitted(int $idPost, $title, $chapo, $content)
   {
     if ($_SESSION && $_SESSION['auth'] === 'ROLE_ADMIN') {
-
-
       $newPost = new PostManager();
       $postAdded = $newPost->editPost($idPost, $title, $chapo, $content);
       header('Location: index.php?action=admin');

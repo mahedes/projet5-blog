@@ -2,7 +2,6 @@
 
 namespace App\model;
 
-
 class Post
 {
   private $id;

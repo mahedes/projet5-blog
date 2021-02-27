@@ -2,9 +2,6 @@
 
 namespace App\model;
 
-use Exception;
-use PDOException;
-
 class UserManager extends Database
 {
   private $db;

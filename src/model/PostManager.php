@@ -67,7 +67,6 @@ class PostManager extends Database
         // $userPost = $userManager->build($data[0]);
         // $modelPost->setAuthor($userPost);
 
-
         foreach ($data as $row) {
             if ($row['idComment'] !== null) {
                 $commentManager = new CommentManager;
@@ -83,7 +82,7 @@ class PostManager extends Database
     }
 
     /**
-     * @toask : updated_at -> Invalid parameter number: number of bound variables does not match number of tokens
+     * @todo : updated_at -> Invalid parameter number: number of bound variables does not match number of tokens
      */
     public function addPost(int $author, $title, $chapo, $content)
     {

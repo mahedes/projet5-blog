@@ -1,4 +1,1 @@
-# projet5-blog
-
-// Manager -> repository (pattern DAO)
-// Model -> entity
+# projet 5 - Créez votre premier blog en PHP

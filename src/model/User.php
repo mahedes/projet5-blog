@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @todo: typage + security password
+ * @todo: typage 
  */
 
 namespace App\model;
