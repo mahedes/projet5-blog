@@ -32,9 +32,9 @@ class Router
           echo $controller->logout();
         } else if ($_GET['action'] === 'admin') {
           echo $controller->admin();
-        } else if ($_GET['action'] === 'allow-comment') {
+        } else if ($_GET['action'] === 'admin/allow-comment') {
           echo $controller->allowComment((int) $_GET['idComment']);
-        } else if ($_GET['action'] === 'delete-comment') {
+        } else if ($_GET['action'] === 'admin/delete-comment') {
           echo $controller->deleteComment((int) $_GET['idComment']);
         } else if ($_GET['action'] === 'admin/add-post') {
           echo $controller->newPost();
@@ -44,6 +44,8 @@ class Router
           echo $controller->editPost((int) $_GET['id']);
         } else if ($_GET['action'] === 'admin/edit-post/editPostSubmitted') {
           echo $controller->editPostSubmitted((int) $_GET['id'], $_POST['title'], $_POST['chapo'], $_POST['content']);
+        } else if ($_GET['action'] === 'admin/delete-post') {
+          echo $controller->deletePostSubmitted((int) $_GET['id']);
         } else {
           echo 'page inconnue';
         }

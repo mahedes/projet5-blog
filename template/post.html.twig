@@ -19,9 +19,17 @@
                             <strong>{{ postId.author}}</strong>
                         </li>
                         <li>Date:
-                            <strong><a href="http://startbootstrap.com">{{ postId.updatedAt}}</a>
+                            <strong> 
+                                <a href="#">{{ postId.createdAt|date("m/d/Y \\a\\t g:ia")}}</a>
                             </strong>
                         </li>
+                        {% if postId.updatedAt != null %}
+                        <li>Last updated:
+                            <strong> 
+                                <a href="#">{{ postId.updatedAt|date("m/d/Y \\a\\t g:ia")}}</a>
+                            </strong>
+                        </li>
+                        {% endif %}
                     </ul>
                     <p>
                         {{ postId.content}}

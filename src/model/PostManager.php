@@ -117,4 +117,21 @@ class PostManager extends Database
             die($e->getmessage());
         }
     }
+
+    public function deletePost(int $idPost)
+    {
+        try {
+            $reqComments = $this->connection->prepare('DELETE FROM comments WHERE id_post = :idPost');
+            $reqComments->execute(array(
+                'idPost' => $idPost
+            ));
+
+            $reqPost = $this->connection->prepare('DELETE FROM posts WHERE id= :idPost');
+            $reqPost->execute(array(
+                'idPost' => $idPost,
+            ));
+        } catch (PDOException $e) {
+            die($e->getmessage());
+        }
+    }
 }

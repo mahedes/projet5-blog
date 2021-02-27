@@ -157,4 +157,13 @@ class FrontController
       header('Location: index.php?action=admin');
     }
   }
+
+  public function deletePostSubmitted(int $idPost)
+  {
+    if ($_SESSION && $_SESSION['auth'] === 'ROLE_ADMIN') {
+      $postManager = new postManager();
+      $postToDelete = $postManager->deletePost($idPost);
+      header('Location: index.php?action=admin');
+    }
+  }
 }

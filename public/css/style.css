@@ -28,7 +28,9 @@ form label {
   opacity: 1!important;
 
 }
-
+.delete-confirmation {
+  display: none;
+}
 @media (min-width: 992px){
   .footer1 {
     display: flex;

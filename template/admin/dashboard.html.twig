@@ -27,8 +27,8 @@
         <td>{{ comment.post }}</td>
         <td>{{ comment.content }}</td>
         <td>
-            <a href="index.php?action=allow-comment&amp;idComment={{comment.id}}" type="button" class="btn btn-success">Validate</a>
-            <a href="index.php?action=delete-comment&amp;idComment={{comment.id}}" type="button" class="btn btn-danger">Delete</a>
+            <a href="index.php?action=admin/allow-comment&amp;idComment={{comment.id}}" type="button" class="btn btn-success">Validate</a>
+            <a href="index.php?action=admin/delete-comment&amp;idComment={{comment.id}}" type="button" class="btn btn-danger">Delete</a>
         </td>
       </tr>
       {% endif %}
@@ -52,7 +52,7 @@
   </thead>
   <tbody>
     {% for post in posts %} 
-    <tr>
+    <tr id="post-{{post.id}}">
       <th scope="row">{{ post.id }}</th>
       <td>{{ post.author }}</td>
       <td>{{ post.title }}</td>
@@ -61,7 +61,9 @@
       <td>
           <a href="index.php?action=article&amp;id={{post.id}}" type="button" class="btn btn-info">Show</a>
           <a href="index.php?action=admin/edit-post&amp;id={{post.id}}" type="button" class="btn btn-warning">Edit</a>
-          <a href="" type="button" class="btn btn-danger">Delete</a>
+          
+          <a type="button" class="btn btn-danger delete-button">Delete</a>
+          <a type="button" class="btn btn-danger delete-confirmation" href="index.php?action=admin/delete-post&amp;id={{post.id}}">Confirm Deletion ?</a>
       </td>
     </tr>
     {% endfor %}
