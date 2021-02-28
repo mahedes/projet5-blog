@@ -4,7 +4,7 @@ namespace App\model;
 
 class Post
 {
-  private $id;
+  private $idPost;
   private $title;
   private $author;
   private $createdAt;
@@ -22,11 +22,11 @@ class Post
 
   public function getId()
   {
-    return $this->id;
+    return $this->idPost;
   }
-  public function setId($id)
+  public function setId($idPost)
   {
-    $this->id = $id;
+    $this->idPost = $idPost;
   }
 
   public function getTitle(): ?string // ?string : retourne null ou string

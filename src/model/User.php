@@ -8,7 +8,7 @@ namespace App\model;
 
 class User
 {
-  private $id;
+  private $idUser;
   private $pseudo;
   private $name;
   private $firstname;
@@ -19,11 +19,11 @@ class User
 
   public function getId()
   {
-    return $this->id;
+    return $this->idUser;
   }
-  public function setId(int $id)
+  public function setId(int $idUser)
   {
-    $this->id = $id;
+    $this->idUser = $idUser;
   }
 
   public function getPseudo()

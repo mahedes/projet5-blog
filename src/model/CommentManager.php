@@ -18,13 +18,13 @@ class CommentManager extends Database
   public function build($row): Comment
   {
     $comments = new Comment;
-    $comments->setId($row['id']);
-    $comments->setAuthor($row['authorComment']);
-    $comments->setPost($row['post']);
+    $comments->setId((int) $row['id']);
+    $comments->setAuthor((string) $row['authorComment']);
+    $comments->setPost((string) $row['post']);
     $createAt = $row['createdAt'];
     $comments->setCreatedAt($createAt);
-    $comments->setContent($row['commentContent']);
-    $comments->setValidationStatus($row['validationStatus']);
+    $comments->setContent((string)$row['commentContent']);
+    $comments->setValidationStatus((bool) $row['validationStatus']);
 
     return $comments;
   }
@@ -58,14 +58,19 @@ class CommentManager extends Database
 
   public function addComment(int $postId, $commentsContent, int $author)
   {
-    $req = $this->connection->prepare('INSERT INTO comments (id_user, id_post, created_at, content, validation_status) VALUES(:id_user, :id_post, :createdAt, :content, :validationStatus)');
-    $req->execute(array(
-      'id_user' => $author,
-      'id_post' => $postId,
-      'createdAt' => date("Y-m-d H:i:s"),
-      'content' => $commentsContent,
-      'validationStatus' => 0
-    ));
+
+    try {
+      $req = $this->connection->prepare('INSERT INTO comments (id_user, id_post, created_at, content, validation_status) VALUES(:id_user, :id_post, :createdAt, :content, :validationStatus)');
+      $req->execute(array(
+        'id_user' => $author,
+        'id_post' => $postId,
+        'createdAt' => date("Y-m-d H:i:s"),
+        'content' => $commentsContent,
+        'validationStatus' => 0
+      ));
+    } catch (PDOException $e) {
+      die($e->getmessage());
+    }
   }
 
   public function validationComment($commentId)

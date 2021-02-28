@@ -36,7 +36,7 @@ class FrontController
   public function newComment(int $id, $coms)
   {
     $newComment = new CommentManager();
-    $comments = $newComment->addComment($id, $coms, $_SESSION['id']);
+    $comments = $newComment->addComment((int) $id, $coms, (int) $_SESSION['id']);
     header('Location: index.php?action=article&id=' . $id);
   }
 
@@ -139,17 +139,22 @@ class FrontController
     if ($_SESSION && $_SESSION['auth'] === 'ROLE_ADMIN') {
       $postManager = new PostManager();
       $postId = $postManager->getPostWithComments($id);
+      $userManager = new UserManager();
+      $usersAdmin = $userManager->getUsersAdmin();
+
       return View::twig()->render('admin/edit.html.twig', [
         'post' => $postId,
+        'usersAdmin' => $usersAdmin
       ]);
     }
   }
 
-  public function editPostSubmitted(int $idPost, $title, $chapo, $content)
+  public function editPostSubmitted(int $idPost, $title, $chapo, int $author, $content)
   {
     if ($_SESSION && $_SESSION['auth'] === 'ROLE_ADMIN') {
       $newPost = new PostManager();
-      $postAdded = $newPost->editPost($idPost, $title, $chapo, $content);
+
+      $postAdded = $newPost->editPost($idPost, $title, $chapo, $author, $content);
       header('Location: index.php?action=admin');
     }
   }

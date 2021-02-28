@@ -43,7 +43,7 @@ class Router
         } else if ($_GET['action'] === 'admin/edit-post') {
           echo $controller->editPost((int) $_GET['id']);
         } else if ($_GET['action'] === 'admin/edit-post/editPostSubmitted') {
-          echo $controller->editPostSubmitted((int) $_GET['id'], $_POST['title'], $_POST['chapo'], $_POST['content']);
+          echo $controller->editPostSubmitted((int) $_GET['id'], $_POST['title'], $_POST['chapo'], $_POST['author'], $_POST['content']);
         } else if ($_GET['action'] === 'admin/delete-post') {
           echo $controller->deletePostSubmitted((int) $_GET['id']);
         } else if ($_GET['action'] === 'contactFormSubmitted') {
