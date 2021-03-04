@@ -3,7 +3,6 @@
 {% block title %}Edit Post{% endblock %}
 
 {% block body %}
-
 <div class="container post">
     <div class="row">
         <div class="col-lg-8 col-lg-offset-2">
@@ -29,6 +28,21 @@
 
                 <div class="row control-group">
                   <div class="form-group col-xs-12 floating-label-form-group controls">
+                    <label>Author</label>
+                    <select name="author">
+                        {% for user in usersAdmin %}
+                            {% if user.idUser == post.author.id %}
+                                <option value="{{user.idUser}}" selected> {{user.idUser}} - {{user.pseudo}}</option>
+                            {% else %}
+                                <option value="{{user.idUser}}"> {{user.idUser}} - {{user.pseudo}}</option>
+                            {% endif %}
+                        {% endfor %}
+                    </select>
+                  </div>
+                </div>
+
+                <div class="row control-group">
+                  <div class="form-group col-xs-12 floating-label-form-group controls">
                       <label>Content</label>
                       <textarea rows="5" class="form-control" id="content" name="content" required>{{ post.content }}</textarea><br>
                   </div>
@@ -36,7 +50,7 @@
                 <br>
                 <div class="row">
                     <div class="form-group col-xs-12">
-                        <input type="submit" class="btn btn-success btn-lg" value="Edit post">
+                        <input type="submit" name="edit-post-success" class="btn btn-success btn-lg" value="Edit post">
                     </div>
                 </div>
             </form>

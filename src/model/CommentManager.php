@@ -18,13 +18,13 @@ class CommentManager extends Database
   public function build($row): Comment
   {
     $comments = new Comment;
-    $comments->setId($row['id']);
-    $comments->setAuthor($row['author']);
-    $comments->setPost($row['post']);
+    $comments->setId((int) $row['id']);
+    $comments->setAuthor((string) $row['authorComment']);
+    $comments->setPost((string) $row['post']);
     $createAt = $row['createdAt'];
     $comments->setCreatedAt($createAt);
-    $comments->setContent($row['commentContent']);
-    $comments->setValidationStatus($row['validationStatus']);
+    $comments->setContent((string)$row['commentContent']);
+    $comments->setValidationStatus((bool) $row['validationStatus']);
 
     return $comments;
   }
@@ -33,7 +33,7 @@ class CommentManager extends Database
   {
     try {
       $result = $this->connection->query(
-        'SELECT c.id, c.id_user, c.id_post post, c.created_at createdAt, c.content commentContent, c.validation_status validationStatus, u.pseudo author 
+        'SELECT c.id, c.id_user, c.id_post post, c.created_at createdAt, c.content commentContent, c.validation_status validationStatus, u.pseudo authorComment 
         FROM comments c 
         LEFT JOIN users u 
         ON u.id = c.id_user 
@@ -43,14 +43,16 @@ class CommentManager extends Database
         
         ORDER BY id ASC'
       );
+      $data = $result->fetchAll(\PDO::FETCH_ASSOC);
+      if ($data != null) {
+        foreach ($data as $row) {
+          $commentId = $row['id'];
+          $commentsList[$commentId] = $this->build($row);
+        }
+        $result->closeCursor();
 
-      foreach ($result as $row) {
-        $commentId = $row['id'];
-        $commentsList[$commentId] = $this->build($row);
+        return $commentsList;
       }
-      $result->closeCursor();
-
-      return $commentsList;
     } catch (PDOException $e) {
       die($e->getmessage());
     }
@@ -58,14 +60,19 @@ class CommentManager extends Database
 
   public function addComment(int $postId, $commentsContent, int $author)
   {
-    $req = $this->connection->prepare('INSERT INTO comments (id_user, id_post, created_at, content, validation_status) VALUES(:id_user, :id_post, :createdAt, :content, :validationStatus)');
-    $req->execute(array(
-      'id_user' => $author,
-      'id_post' => $postId,
-      'createdAt' => date("Y-m-d H:i:s"),
-      'content' => $commentsContent,
-      'validationStatus' => 0
-    ));
+
+    try {
+      $req = $this->connection->prepare('INSERT INTO comments (id_user, id_post, created_at, content, validation_status) VALUES(:id_user, :id_post, :createdAt, :content, :validationStatus)');
+      $req->execute(array(
+        'id_user' => $author,
+        'id_post' => $postId,
+        'createdAt' => date("Y-m-d H:i:s"),
+        'content' => $commentsContent,
+        'validationStatus' => 0
+      ));
+    } catch (PDOException $e) {
+      die($e->getmessage());
+    }
   }
 
   public function validationComment($commentId)

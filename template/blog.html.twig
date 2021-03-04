@@ -11,10 +11,10 @@
                 <hr class="star-primary">
             </div>
         </div>
-        <div class="row">
+        <div class="row blog-column">
             {% for post in posts %}
             <div class="col-sm-4 portfolio-item">
-                <a href="#portfolioModal1" class="portfolio-link" data-toggle="modal">
+                <a href="index.php?action=article&amp;id={{post.id}}" class="portfolio-link" data-toggle="modal">
                     <div class="caption">
                         <div class="caption-content">
                             <i class="fa fa-eye fa-3x"></i>
@@ -27,12 +27,12 @@
                     <h3>{{ post.title }}</h3>
                     <ul class="list-inline item-details">
                         <li>Date:
-                            <strong><a href="http://startbootstrap.com">{{ post.updatedAt|date("m/d/Y \\a\\t g:ia") }}</a>
+                            <strong><a href="#">{{ post.updatedAt|date("m/d/Y \\a\\t g:ia") }}</a>
                             </strong>
                         </li>
                     </ul>
                     <p>{{ post.chapo }}</p>
-                    <a href="index.php?action=article&amp;id={{post.id}}">Voir l'article</a>
+                    <a href="index.php?action=article&amp;id={{post.id}}"> >> Voir l'article</a>
             </div>
             {% endfor %}   
         </div>

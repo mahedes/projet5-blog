@@ -1,8 +1,20 @@
 #main  {
   margin-top: 100px;
+  max-width: 100vw;
+  overflow-y: hidden;
  }
+.tab-admin {
+  overflow: scroll;
+}
 .post h2 {
   text-align: center;
+}
+.chapo {
+  text-align: center;
+  padding: 20px 0px;
+}
+.content-post {
+  padding: 40px 0px;
 }
 .hello {
   color: #2C3E50; 
@@ -28,6 +40,11 @@ form label {
   opacity: 1!important;
 
 }
+.blog-column {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+} 
 .delete-confirmation {
   display: none;
 }

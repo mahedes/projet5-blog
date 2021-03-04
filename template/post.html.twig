@@ -3,22 +3,25 @@
 {% block title %}Post{% endblock %}
 
 {% block body %} 
-
-
-
     <div class="container post">
         <div class="row">
             <div class="col-lg-8 col-lg-offset-2">
                 <div class="modal-body">
                     <h2>{{ postId.title}}</h2>
+                    <p class="chapo">{{ postId.chapo}}</p>
                     <hr class="star-primary">
                     <img src="img/portfolio/cake.png" class="img-responsive img-centered" alt="">
-                    <p>{{ postId.chapo}}</p>
+                    
+                    <div class="content-post">
+                        <p>{{ postId.content}}</p>
+                    </div>
+                    
+
                     <ul class="list-inline item-details">
                         <li>Author:
-                            <strong>{{ postId.author}}</strong>
+                            <strong>{{ postId.author.pseudo }}</strong>
                         </li>
-                        <li>Date:
+                        <li>Created at:
                             <strong> 
                                 <a href="#">{{ postId.createdAt|date("m/d/Y \\a\\t g:ia")}}</a>
                             </strong>
@@ -31,10 +34,8 @@
                         </li>
                         {% endif %}
                     </ul>
-                    <p>
-                        {{ postId.content}}
-                    </p>
                 </div>
+                <hr class="star-primary">
                 {% if session %}
                 <form id="contactForm" action="index.php?action=add-comment&amp;postId={{postId.id}}" method="post">
                     <h3>Let a comment</h3>

@@ -2,20 +2,15 @@
 
 namespace App\model;
 
-
 class Post
 {
-  private $id;
+  private $idPost;
   private $title;
   private $author;
   private $createdAt;
   private $updatedAt;
   private $chapo;
   private $content;
-  // /**
-  //  * @var array < User >
-  //  */
-  // private $author;
   /**
    * @var array < Comment >
    */
@@ -23,11 +18,11 @@ class Post
 
   public function getId()
   {
-    return $this->id;
+    return $this->idPost;
   }
-  public function setId($id)
+  public function setId($idPost)
   {
-    $this->id = $id;
+    $this->idPost = $idPost;
   }
 
   public function getTitle(): ?string // ?string : retourne null ou string
@@ -88,10 +83,6 @@ class Post
   {
     $this->author = $author;
   }
-  // public function setAuthor(User $author)
-  // {
-  //   $this->author[] = $author;
-  // }
 
   // OneToMany
   public function getComments()
@@ -102,13 +93,4 @@ class Post
   {
     $this->comments[] = $comments;
   }
-
-  // public function getUser()
-  // {
-  //   return $this->user;
-  // }
-  // public function setUser(User $user)
-  // {
-  //   $this->$user[] = $user;
-  // }
 }
