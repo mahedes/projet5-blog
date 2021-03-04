@@ -3,13 +3,24 @@
 namespace App\Controller;
 
 use \App\config\View;
+use \App\config\Session;
 use \App\model\PostManager;
 use \App\model\UserManager;
 use \App\model\CommentManager;
 use \App\model\Post;
 
+
 class FrontController
 {
+
+
+  public function __construct()
+  {
+    if (empty($_GET['submit'])) {
+      unset($_SESSION['flash']);
+    }
+  }
+
   public function home()
   {
     return View::twig()->render('home.html.twig');
@@ -37,7 +48,8 @@ class FrontController
   {
     $newComment = new CommentManager();
     $comments = $newComment->addComment((int) $id, $coms, (int) $_SESSION['id']);
-    header('Location: index.php?action=article&id=' . $id);
+    $_SESSION['flash'] = 'Your comment has been added and submitted for validation';
+    header('Location: index.php?action=article&id=' . $id . '&submit=success');
   }
 
   public function register()
@@ -49,7 +61,8 @@ class FrontController
   {
     $userManager = new UserManager();
     $newUser = $userManager->register($pseudo, $name, $firstname, $email, $password);
-    header('Location: ../public/index.php');
+    $_SESSION['flash'] = 'Your account has been created successfully';
+    header('Location: ../public/index.php?submit=success');
   }
 
   public function login()
@@ -81,11 +94,13 @@ class FrontController
   public function logout()
   {
     session_destroy();
-    header('Location: ../public/index.php');
+    $_SESSION['flash'] = 'You have been disconnected';
+    header('Location: ../public/index.php?submit=success');
   }
 
   public function admin()
   {
+
     if ($_SESSION && $_SESSION['auth'] === 'ROLE_ADMIN') {
       $post = new PostManager();
       $posts = $post->getPosts();
@@ -105,7 +120,8 @@ class FrontController
     if ($_SESSION && $_SESSION['auth'] === 'ROLE_ADMIN') {
       $comment = new CommentManager();
       $comments = $comment->validationComment($idComment);
-      header('Location: index.php?action=admin');
+      $_SESSION['flash'] = 'Comment ' . $idComment . ' has been validated';
+      header('Location: index.php?action=admin&submit=success');
     }
   }
 
@@ -114,7 +130,8 @@ class FrontController
     if ($_SESSION && $_SESSION['auth'] === 'ROLE_ADMIN') {
       $comment = new CommentManager();
       $comments = $comment->deleteComment($idComment);
-      header('Location: index.php?action=admin');
+      $_SESSION['flash'] = 'Comment ' . $idComment . ' has been deleted';
+      header('Location: index.php?action=admin&submit=success');
     }
   }
 
@@ -130,7 +147,8 @@ class FrontController
     if ($_SESSION && $_SESSION['auth'] === 'ROLE_ADMIN') {
       $newPost = new PostManager();
       $postAdded = $newPost->addPost($_SESSION['id'], $title, $chapo, $content);
-      header('Location: index.php?action=admin');
+      $_SESSION['flash'] = 'New post has been added successfully';
+      header('Location: index.php?action=admin&submit=success');
     }
   }
 
@@ -153,9 +171,9 @@ class FrontController
   {
     if ($_SESSION && $_SESSION['auth'] === 'ROLE_ADMIN') {
       $newPost = new PostManager();
-
       $postAdded = $newPost->editPost($idPost, $title, $chapo, $author, $content);
-      header('Location: index.php?action=admin');
+      $_SESSION['flash'] = 'Post ' . $idPost . ' has been edited successfully';
+      header('Location: index.php?action=admin&submit=success');
     }
   }
 
@@ -164,7 +182,8 @@ class FrontController
     if ($_SESSION && $_SESSION['auth'] === 'ROLE_ADMIN') {
       $postManager = new postManager();
       $postToDelete = $postManager->deletePost($idPost);
-      header('Location: index.php?action=admin');
+      $_SESSION['flash'] = 'Post ' . $idPost . ' has been deleted successfully';
+      header('Location: index.php?action=admin&submit=success');
     }
   }
 
