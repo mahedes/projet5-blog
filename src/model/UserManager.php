@@ -16,13 +16,13 @@ class UserManager extends Database
   public function build($row): User
   {
     $users = new User;
-    $users->setId($row['idUser']);
+    $users->setId((int) $row['idUser']);
     $users->setPseudo($row['pseudo']);
     $users->setName($row['name']);
     $users->setFirstname($row['firstname']);
     $users->setEmail($row['email']);
     $users->setPassword($row['password']);
-    $users->setAdminStatus($row['admin_status']);
+    $users->setAdminStatus((bool) $row['admin_status']);
     $createAt = $row['created_at'];
     $users->setCreatedAt($createAt);
     return $users;
@@ -34,9 +34,9 @@ class UserManager extends Database
       'SELECT id idUser, pseudo FROM users WHERE admin_status = 1'
     );
 
-    $data = $result->fetchAll(\PDO::FETCH_ASSOC);
+    $usersAdmin = $result->fetchAll(\PDO::FETCH_ASSOC);
 
-    return $data;
+    return $usersAdmin;
   }
 
   public function register($pseudo, $name, $firstname, $email, $password)

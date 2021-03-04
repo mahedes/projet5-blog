@@ -32,9 +32,9 @@
                     <select name="author">
                         {% for user in usersAdmin %}
                             {% if user.idUser == post.author.id %}
-                            <option value="{{user.idUser}}" selected> {{user.idUser}} - {{user.pseudo}}</option>
+                                <option value="{{user.idUser}}" selected> {{user.idUser}} - {{user.pseudo}}</option>
                             {% else %}
-                            <option value="{{user.idUser}}"> {{user.idUser}} - {{user.pseudo}}</option>
+                                <option value="{{user.idUser}}"> {{user.idUser}} - {{user.pseudo}}</option>
                             {% endif %}
                         {% endfor %}
                     </select>

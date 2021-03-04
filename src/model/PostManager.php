@@ -21,9 +21,9 @@ class PostManager extends Database
     public function build(array $row): Post
     {
         $post = new Post;
-        $post->setId($row['idPost']);
+        $post->setId((int) $row['idPost']);
         $post->setTitle($row['title']);
-        $post->setAuthor($row['author']);
+        // $post->setAuthor($row['author']);
         $createAt = $row['createdAt'];
         $post->setCreatedAt($createAt);
         $post->setUpdatedAt($row['updatedAt']);
@@ -34,18 +34,48 @@ class PostManager extends Database
 
     public function getPosts()
     {
-        $result = $this->connection->query(
-            'SELECT p.id idPost, p.title title, p.created_at createdAt, p.updated_at updatedAt, p.short_description chapo, p.content content, p.id_user, u.pseudo author FROM posts p INNER JOIN users u ON u.id = p.id_user ORDER BY idPost DESC'
-        );
-        foreach ($result as $row) {
-            $postId = $row['idPost'];
-            $posts[$postId] = $this->build($row);
+        // $result = $this->connection->query(
+        //     'SELECT p.id idPost, p.title title, p.created_at createdAt, p.updated_at updatedAt, p.short_description chapo, p.content content, p.id_user, u.pseudo author 
+        //     FROM posts p 
+        //     INNER JOIN users u 
+        //     ON u.id = p.id_user 
+        //     ORDER BY idPost 
+        //     DESC'
+        // );
+        // foreach ($result as $row) {
+        //     $postId = $row['idPost'];
+        //     $posts[$postId] = $this->build($row);
+        // }
+        // $result->closeCursor();
+        // return $posts;
+        try {
+            $result = $this->connection->query('SELECT p.id idPost, p.title title, p.created_at createdAt, p.updated_at updatedAt, p.short_description chapo, p.content content, p.id_user author, u.id idUser, u.pseudo, u.name, u.firstname, u.email, u.password, u.admin_status, u.created_at
+            FROM posts p 
+            LEFT JOIN users u 
+            ON u.id = p.id_user');
+
+
+            $data = $result->fetchAll(\PDO::FETCH_ASSOC);
+
+            $posts = array();
+
+            foreach ($data as $row) {
+                $modelPost = $this->build($row);
+                if ($row['author']) {
+                    $userManager = new UserManager;
+                    $userPost = $userManager->build($row);
+                    $modelPost->setAuthor($userPost);
+                }
+                $posts[] = $modelPost;
+            }
+
+            return $posts;
+        } catch (PDOException $e) {
+            die($e->getmessage());
         }
-        $result->closeCursor();
-        return $posts;
     }
 
-    public function getPostWithComments($id)
+    public function getPostWithComments(int $id)
     {
         try {
             // $result = $this->connection->prepare('SELECT p.id id, p.title title, p.created_at createdAt, p.updated_at updatedAt, p.short_description chapo, p.content content, p.id_user, u.id author, u.pseudo, c.id idComment, c.id_post post, c.id_user commentUser, c.created_at createdAt, c.content commentContent, c.validation_status validationStatus
@@ -89,7 +119,8 @@ class PostManager extends Database
                     $modelPost->setComments($comment);
                 }
             }
-
+            // var_dump($modelPost);
+            // die();
             return $modelPost;
         } catch (PDOException $e) {
             die($e->getmessage());
