@@ -23,7 +23,6 @@ class PostManager extends Database
         $post = new Post;
         $post->setId((int) $row['idPost']);
         $post->setTitle($row['title']);
-        // $post->setAuthor($row['author']);
         $createAt = $row['createdAt'];
         $post->setCreatedAt($createAt);
         $post->setUpdatedAt($row['updatedAt']);
@@ -34,29 +33,13 @@ class PostManager extends Database
 
     public function getPosts()
     {
-        // $result = $this->connection->query(
-        //     'SELECT p.id idPost, p.title title, p.created_at createdAt, p.updated_at updatedAt, p.short_description chapo, p.content content, p.id_user, u.pseudo author 
-        //     FROM posts p 
-        //     INNER JOIN users u 
-        //     ON u.id = p.id_user 
-        //     ORDER BY idPost 
-        //     DESC'
-        // );
-        // foreach ($result as $row) {
-        //     $postId = $row['idPost'];
-        //     $posts[$postId] = $this->build($row);
-        // }
-        // $result->closeCursor();
-        // return $posts;
         try {
             $result = $this->connection->query('SELECT p.id idPost, p.title title, p.created_at createdAt, p.updated_at updatedAt, p.short_description chapo, p.content content, p.id_user author, u.id idUser, u.pseudo, u.name, u.firstname, u.email, u.password, u.admin_status, u.created_at
             FROM posts p 
             LEFT JOIN users u 
             ON u.id = p.id_user');
 
-
             $data = $result->fetchAll(\PDO::FETCH_ASSOC);
-
             $posts = array();
 
             foreach ($data as $row) {
@@ -78,7 +61,6 @@ class PostManager extends Database
     public function getPostWithComments(int $id)
     {
         try {
-            // $result = $this->connection->prepare('SELECT p.id id, p.title title, p.created_at createdAt, p.updated_at updatedAt, p.short_description chapo, p.content content, p.id_user, u.id author, u.pseudo, c.id idComment, c.id_post post, c.id_user commentUser, c.created_at createdAt, c.content commentContent, c.validation_status validationStatus
             $result = $this->connection->prepare('SELECT p.id idPost, p.title title, p.created_at createdAt, p.updated_at updatedAt, p.short_description chapo, p.content content, p.id_user author, u.id idUser, us.id, us.pseudo authorComment, u.pseudo, u.name, u.firstname, u.email, u.password, u.admin_status, u.created_at, c.id idComment, c.id_post post, c.id_user, c.created_at createdAt, c.content commentContent, c.validation_status validationStatus
                                         FROM posts p 
                                         LEFT JOIN users u 
@@ -96,40 +78,24 @@ class PostManager extends Database
             $data = $result->fetchAll(\PDO::FETCH_ASSOC);
             $modelPost = $this->build($data[0]);
 
-            // $userManager = new UserManager;
-            // $userPost = $userManager->build($data[0]);
-            // $modelPost->setAuthor($userPost);
-
             foreach ($data as $row) {
                 if ($row['author']) {
-
                     $userManager = new UserManager;
                     $userPost = $userManager->build($row);
-                    // var_dump($userPost);
-                    // die();
                     $modelPost->setAuthor($userPost);
                 }
                 if ($row['idComment'] !== null) {
                     $commentManager = new CommentManager;
                     $comment = $commentManager->build($row);
-                    // if ($row['author'] !== null) {
-                    //     $userComment = $userManager->build($row);
-                    //     $comment->setAuthorComment($userComment);
-                    // } 
                     $modelPost->setComments($comment);
                 }
             }
-            // var_dump($modelPost);
-            // die();
             return $modelPost;
         } catch (PDOException $e) {
             die($e->getmessage());
         }
     }
 
-    /**
-     * @todo : updated_at -> Invalid parameter number: number of bound variables does not match number of tokens
-     */
     public function addPost(int $author, $title, $chapo, $content)
     {
         try {

@@ -1,9 +1,5 @@
 <?php
 
-/**
- * @todo: typage 
- */
-
 namespace App\model;
 
 class User

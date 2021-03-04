@@ -11,10 +11,6 @@ class Post
   private $updatedAt;
   private $chapo;
   private $content;
-  // /**
-  //  * @var array < User >
-  //  */
-  // private $author;
   /**
    * @var array < Comment >
    */
@@ -87,10 +83,6 @@ class Post
   {
     $this->author = $author;
   }
-  // public function setAuthor(User $author)
-  // {
-  //   $this->author[] = $author;
-  // }
 
   // OneToMany
   public function getComments()
@@ -101,13 +93,4 @@ class Post
   {
     $this->comments[] = $comments;
   }
-
-  // public function getUser()
-  // {
-  //   return $this->user;
-  // }
-  // public function setUser(User $user)
-  // {
-  //   $this->$user[] = $user;
-  // }
 }
