@@ -35,7 +35,11 @@
     {% include 'navbar.html.twig' %}
 
     <div id="main" class="container">
-    {% block body %}{% endblock %}
+      {% if session["flash"] %}
+        <p class="alert alert-success" role="alert">{{ session["flash"] }}</p>
+      {% endif %}
+
+      {% block body %}{% endblock %}
     </div>
     {% include 'footer.html.twig' %}
     {% include 'scroll-top.html.twig' %}

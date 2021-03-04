@@ -56,7 +56,7 @@ class UserManager extends Database
   public function login($email)
   {
     $result = $this->connection->query(
-      'SELECT * FROM users WHERE email = \'' . $email . '\''
+      'SELECT id idUser, pseudo, name, firstname, email, password, admin_status, created_at FROM users WHERE email = \'' . $email . '\''
     );
 
     $data = $result->fetchAll(\PDO::FETCH_ASSOC);

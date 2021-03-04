@@ -43,14 +43,16 @@ class CommentManager extends Database
         
         ORDER BY id ASC'
       );
+      $data = $result->fetchAll(\PDO::FETCH_ASSOC);
+      if ($data != null) {
+        foreach ($data as $row) {
+          $commentId = $row['id'];
+          $commentsList[$commentId] = $this->build($row);
+        }
+        $result->closeCursor();
 
-      foreach ($result as $row) {
-        $commentId = $row['id'];
-        $commentsList[$commentId] = $this->build($row);
+        return $commentsList;
       }
-      $result->closeCursor();
-
-      return $commentsList;
     } catch (PDOException $e) {
       die($e->getmessage());
     }
