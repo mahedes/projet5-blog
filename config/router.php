@@ -11,7 +11,7 @@ use Exception;
 
 class Router
 {
-  public function run()
+  public static function run()
   {
     $frontController = new FrontController;
     $adminController = new AdminController;
