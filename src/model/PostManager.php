@@ -42,35 +42,30 @@ class PostManager extends Database
 
     public function getPosts()
     {
-        try {
-            $result = $this->connection->query('SELECT p.id idPost, p.title title, p.created_at createdAt, p.updated_at updatedAt, p.short_description chapo, p.content content, p.id_user author, u.id idUser, u.pseudo, u.name, u.firstname, u.email, u.password, u.admin_status, u.created_at
+        $result = $this->connection->query('SELECT p.id idPost, p.title title, p.created_at createdAt, p.updated_at updatedAt, p.short_description chapo, p.content content, p.id_user author, u.id idUser, u.pseudo, u.name, u.firstname, u.email, u.password, u.admin_status, u.created_at
             FROM posts p 
             LEFT JOIN users u 
             ON u.id = p.id_user');
 
-            $data = $result->fetchAll(\PDO::FETCH_ASSOC);
-            $posts = array();
+        $data = $result->fetchAll(\PDO::FETCH_ASSOC);
+        $posts = array();
 
-            foreach ($data as $row) {
-                $modelPost = $this->build($row);
-                if ($row['author']) {
-                    $userManager = new UserManager;
-                    $userPost = $userManager->build($row);
-                    $modelPost->setAuthor($userPost);
-                }
-                $posts[] = $modelPost;
+        foreach ($data as $row) {
+            $modelPost = $this->build($row);
+            if ($row['author']) {
+                $userManager = new UserManager;
+                $userPost = $userManager->build($row);
+                $modelPost->setAuthor($userPost);
             }
-
-            return $posts;
-        } catch (PDOException $e) {
-            die($e->getmessage());
+            $posts[] = $modelPost;
         }
+
+        return $posts;
     }
 
     public function getPostWithComments(int $id)
     {
-        try {
-            $result = $this->connection->prepare('SELECT p.id idPost, p.title title, p.created_at createdAt, p.updated_at updatedAt, p.short_description chapo, p.content content, p.id_user author, u.id idUser, us.id, us.pseudo authorComment, u.pseudo, u.name, u.firstname, u.email, u.password, u.admin_status, u.created_at, c.id idComment, c.id_post post, c.id_user, c.created_at createdAt, c.content commentContent, c.validation_status validationStatus
+        $result = $this->connection->prepare('SELECT p.id idPost, p.title title, p.created_at createdAt, p.updated_at updatedAt, p.short_description chapo, p.content content, p.id_user author, u.id idUser, us.id, us.pseudo authorComment, u.pseudo, u.name, u.firstname, u.email, u.password, u.admin_status, u.created_at, c.id idComment, c.id_post post, c.id_user, c.created_at createdAt, c.content commentContent, c.validation_status validationStatus
                                         FROM posts p 
                                         LEFT JOIN users u 
                                         ON u.id = p.id_user
@@ -80,78 +75,63 @@ class PostManager extends Database
                                         ON us.id = c.id_user
                                         WHERE p.id = ?');
 
-            $result->execute([
-                $id
-            ]);
+        $result->execute([
+            $id
+        ]);
 
-            $data = $result->fetchAll(\PDO::FETCH_ASSOC);
-            $modelPost = $this->build($data[0]);
+        $data = $result->fetchAll(\PDO::FETCH_ASSOC);
+        $modelPost = $this->build($data[0]);
 
-            foreach ($data as $row) {
-                if ($row['author']) {
-                    $userManager = new UserManager;
-                    $userPost = $userManager->build($row);
-                    $modelPost->setAuthor($userPost);
-                }
-                if ($row['idComment'] !== null) {
-                    $commentManager = new CommentManager;
-                    $comment = $commentManager->build($row);
-                    $modelPost->setComments($comment);
-                }
+        foreach ($data as $row) {
+            if ($row['author']) {
+                $userManager = new UserManager;
+                $userPost = $userManager->build($row);
+                $modelPost->setAuthor($userPost);
             }
-            return $modelPost;
-        } catch (PDOException $e) {
-            die($e->getmessage());
+            if ($row['idComment'] !== null) {
+                $commentManager = new CommentManager;
+                $comment = $commentManager->build($row);
+                $modelPost->setComments($comment);
+            }
         }
+        return $modelPost;
     }
 
     public function addPost(int $author, string $title, string $chapo, string $content)
     {
-        try {
-            $req = $this->connection->prepare('INSERT INTO posts (id_user, title, created_at, short_description, content) VALUES(:id_user, :title, :created_at, :short_description, :content)');
-            $req->execute(array(
-                'id_user' => $author,
-                'title' => $title,
-                'created_at' => date("Y-m-d H:i:s"),
-                'short_description' => $chapo,
-                'content' => $content
-            ));
-        } catch (PDOException $e) {
-            die($e->getmessage());
-        }
+        $req = $this->connection->prepare('INSERT INTO posts (id_user, title, created_at, short_description, content) VALUES(:id_user, :title, :created_at, :short_description, :content)');
+        $req->execute(array(
+            'id_user' => $author,
+            'title' => $title,
+            'created_at' => date("Y-m-d H:i:s"),
+            'short_description' => $chapo,
+            'content' => $content
+        ));
     }
 
     public function editPost(int $idPost, string $title, string $chapo, int $author, string $content)
     {
-        try {
-            $req = $this->connection->prepare('UPDATE posts SET title = :title, short_description = :chapo, id_user = :author, content = :content , updated_at = :updatedAt WHERE id = :idPost');
-            $req->execute(array(
-                'idPost' => $idPost,
-                'title' => $title,
-                'chapo' => $chapo,
-                'author' => $author,
-                'content' => $content,
-                'updatedAt' => date("Y-m-d H:i:s")
-            ));
-        } catch (PDOException $e) {
-            die($e->getmessage());
-        }
+        $req = $this->connection->prepare('UPDATE posts SET title = :title, short_description = :chapo, id_user = :author, content = :content , updated_at = :updatedAt WHERE id = :idPost');
+        $req->execute(array(
+            'idPost' => $idPost,
+            'title' => $title,
+            'chapo' => $chapo,
+            'author' => $author,
+            'content' => $content,
+            'updatedAt' => date("Y-m-d H:i:s")
+        ));
     }
 
     public function deletePost(int $idPost)
     {
-        try {
-            $reqComments = $this->connection->prepare('DELETE FROM comments WHERE id_post = :idPost');
-            $reqComments->execute(array(
-                'idPost' => $idPost
-            ));
+        $reqComments = $this->connection->prepare('DELETE FROM comments WHERE id_post = :idPost');
+        $reqComments->execute(array(
+            'idPost' => $idPost
+        ));
 
-            $reqPost = $this->connection->prepare('DELETE FROM posts WHERE id= :idPost');
-            $reqPost->execute(array(
-                'idPost' => $idPost,
-            ));
-        } catch (PDOException $e) {
-            die($e->getmessage());
-        }
+        $reqPost = $this->connection->prepare('DELETE FROM posts WHERE id= :idPost');
+        $reqPost->execute(array(
+            'idPost' => $idPost,
+        ));
     }
 }

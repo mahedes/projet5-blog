@@ -8,7 +8,7 @@ class View
 
   public static function twig()
   {
-    if (self::$twig == null) {
+    if (self::$twig === null) {
       $loader = new \Twig\Loader\FilesystemLoader('../template');
       self::$twig = new \Twig\Environment($loader, [
         'cache' => false,

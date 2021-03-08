@@ -31,9 +31,8 @@ class CommentManager extends Database
 
   public function getUnvalidatedComments()
   {
-    try {
-      $result = $this->connection->query(
-        'SELECT c.id, c.id_user, c.id_post post, c.created_at createdAt, c.content commentContent, c.validation_status validationStatus, u.pseudo authorComment 
+    $result = $this->connection->query(
+      'SELECT c.id, c.id_user, c.id_post post, c.created_at createdAt, c.content commentContent, c.validation_status validationStatus, u.pseudo authorComment 
         FROM comments c 
         LEFT JOIN users u 
         ON u.id = c.id_user 
@@ -42,37 +41,29 @@ class CommentManager extends Database
         WHERE c.validation_status = 0
         
         ORDER BY id ASC'
-      );
-      $data = $result->fetchAll(\PDO::FETCH_ASSOC);
-      if ($data != null) {
-        foreach ($data as $row) {
-          $commentId = $row['id'];
-          $commentsList[$commentId] = $this->build($row);
-        }
-        $result->closeCursor();
-
-        return $commentsList;
+    );
+    $data = $result->fetchAll(\PDO::FETCH_ASSOC);
+    if ($data !== null) {
+      foreach ($data as $row) {
+        $commentId = $row['id'];
+        $commentsList[$commentId] = $this->build($row);
       }
-    } catch (PDOException $e) {
-      die($e->getmessage());
+      $result->closeCursor();
+
+      return $commentsList;
     }
   }
 
   public function addComment(int $postId, string $commentsContent, int $author)
   {
-
-    try {
-      $req = $this->connection->prepare('INSERT INTO comments (id_user, id_post, created_at, content, validation_status) VALUES(:id_user, :id_post, :createdAt, :content, :validationStatus)');
-      $req->execute(array(
-        'id_user' => $author,
-        'id_post' => $postId,
-        'createdAt' => date("Y-m-d H:i:s"),
-        'content' => $commentsContent,
-        'validationStatus' => 0
-      ));
-    } catch (PDOException $e) {
-      die($e->getmessage());
-    }
+    $req = $this->connection->prepare('INSERT INTO comments (id_user, id_post, created_at, content, validation_status) VALUES(:id_user, :id_post, :createdAt, :content, :validationStatus)');
+    $req->execute(array(
+      'id_user' => $author,
+      'id_post' => $postId,
+      'createdAt' => date("Y-m-d H:i:s"),
+      'content' => $commentsContent,
+      'validationStatus' => 0
+    ));
   }
 
   public function validationComment(int $commentId)

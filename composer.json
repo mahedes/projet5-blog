@@ -2,6 +2,7 @@
     "name": "projet5/blog",
     "description": "a blog with php",
     "type": "project",
+    "license": "proprietary",
     "authors": [
         {
             "name": "mahedes",
