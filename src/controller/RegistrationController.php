@@ -3,10 +3,7 @@
 namespace App\Controller;
 
 use \App\config\View;
-use \App\model\PostManager;
 use \App\model\UserManager;
-use \App\model\CommentManager;
-use \App\model\Post;
 
 
 class RegistrationController
