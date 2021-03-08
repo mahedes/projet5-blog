@@ -15,9 +15,6 @@ class PostManager extends Database
         $this->connection = $this->db->getConnection();
     }
 
-    /**
-     * @todo: convertir heure avec createFormFormat()
-     */
     public function build(array $row): Post
     {
         $post = new Post;
