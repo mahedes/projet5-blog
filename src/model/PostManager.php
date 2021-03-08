@@ -15,9 +15,6 @@ class PostManager extends Database
         $this->connection = $this->db->getConnection();
     }
 
-    /**
-     * @todo: convertir heure avec createFormFormat()
-     */
     public function build(array $row): Post
     {
         $post = new Post;
@@ -29,6 +26,18 @@ class PostManager extends Database
         $post->setChapo($row['chapo']);
         $post->setContent($row['content']);
         return $post;
+    }
+
+    public function getArrayPostId()
+    {
+        $result = $this->connection->query('SELECT p.id idPost FROM posts p');
+        $data = $result->fetchAll(\PDO::FETCH_ASSOC);
+
+        $posts = array();
+        foreach ($data as $row) {
+            $posts[] = $row['idPost'];
+        }
+        return $posts;
     }
 
     public function getPosts()
@@ -96,7 +105,7 @@ class PostManager extends Database
         }
     }
 
-    public function addPost(int $author, $title, $chapo, $content)
+    public function addPost(int $author, string $title, string $chapo, string $content)
     {
         try {
             $req = $this->connection->prepare('INSERT INTO posts (id_user, title, created_at, short_description, content) VALUES(:id_user, :title, :created_at, :short_description, :content)');
@@ -112,7 +121,7 @@ class PostManager extends Database
         }
     }
 
-    public function editPost(int $idPost, $title, $chapo, $author, $content)
+    public function editPost(int $idPost, string $title, string $chapo, int $author, string $content)
     {
         try {
             $req = $this->connection->prepare('UPDATE posts SET title = :title, short_description = :chapo, id_user = :author, content = :content , updated_at = :updatedAt WHERE id = :idPost');

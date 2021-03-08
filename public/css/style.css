@@ -1,14 +1,17 @@
-#main  {
-  margin-top: 100px;
-  max-width: 100vw;
-  overflow-y: hidden;
- }
-.tab-admin {
-  overflow: scroll;
+.admin-tab {
+  margin-top: 20px;
+  margin-bottom: 50px;
 }
-.post h2 {
+.admin-title {
   text-align: center;
+  margin-bottom: 50px;
+  margin-top: 50px;
 }
+.blog-column {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+} 
 .chapo {
   text-align: center;
   padding: 20px 0px;
@@ -16,37 +19,33 @@
 .content-post {
   padding: 40px 0px;
 }
+.delete-confirmation {
+  display: none;
+}
+form label {
+  top: 0em!important;
+  opacity: 1!important;
+}
 .hello {
   color: #2C3E50; 
   line-height: 20px;
   padding-bottom: 15px; 
   padding-top: 15px; 
 }
-.admin-title {
-  text-align: center;
-  margin-bottom: 50px;
-  margin-top: 50px;
-}
-.admin-tab {
-  margin-top: 20px;
-  margin-bottom: 50px;
-}
 .login-create-account {
   padding-left: 1em;
   font-size: 1.5em;
 }
-form label {
-  top: 0em!important;
-  opacity: 1!important;
-
+#main  {
+  margin-top: 100px;
+  max-width: 100vw;
+  overflow-y: hidden;
 }
-.blog-column {
-  display: flex;
-  justify-content: space-between;
-  flex-wrap: wrap;
-} 
-.delete-confirmation {
-  display: none;
+.post h2 {
+  text-align: center;
+}
+.tab-admin {
+  overflow: scroll;
 }
 @media (min-width: 992px){
   .footer1 {

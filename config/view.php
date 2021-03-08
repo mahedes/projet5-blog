@@ -15,7 +15,7 @@ class View
         'debug' => true
       ]);
       self::$twig->addGlobal('session', $_SESSION);
-      self::$twig->addExtension(new \Twig\Extension\DebugExtension); // active function dump
+      self::$twig->addExtension(new \Twig\Extension\DebugExtension); // active dump() function
     }
     return self::$twig;
   }

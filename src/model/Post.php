@@ -20,12 +20,12 @@ class Post
   {
     return $this->idPost;
   }
-  public function setId($idPost)
+  public function setId(int $idPost)
   {
     $this->idPost = $idPost;
   }
 
-  public function getTitle(): ?string // ?string : retourne null ou string
+  public function getTitle()
   {
     return $this->title;
   }

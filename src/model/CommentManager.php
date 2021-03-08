@@ -58,7 +58,7 @@ class CommentManager extends Database
     }
   }
 
-  public function addComment(int $postId, $commentsContent, int $author)
+  public function addComment(int $postId, string $commentsContent, int $author)
   {
 
     try {
@@ -75,7 +75,7 @@ class CommentManager extends Database
     }
   }
 
-  public function validationComment($commentId)
+  public function validationComment(int $commentId)
   {
     $req = $this->connection->prepare('UPDATE comments SET validation_status = :validationStatus WHERE id = :idComment');
     $req->execute(array(
@@ -84,7 +84,7 @@ class CommentManager extends Database
     ));
   }
 
-  public function deleteComment($idComment)
+  public function deleteComment(int $idComment)
   {
     $req = $this->connection->prepare('DELETE FROM comments WHERE id = :idComment');
     $req->execute(array(

@@ -39,7 +39,7 @@ class UserManager extends Database
     return $usersAdmin;
   }
 
-  public function register($pseudo, $name, $firstname, $email, $password)
+  public function register(string $pseudo, string $name, string $firstname, string $email, string $password)
   {
     $req = $this->connection->prepare('INSERT INTO users(pseudo, name, firstname, email, password, admin_status, created_at) VALUES(:pseudo, :name, :firstname, :email, :password, :adminStatus, :createdAt)');
     $req->execute(array(
@@ -53,7 +53,7 @@ class UserManager extends Database
     ));
   }
 
-  public function login($email)
+  public function login(string $email)
   {
     $result = $this->connection->query(
       'SELECT id idUser, pseudo, name, firstname, email, password, admin_status, created_at FROM users WHERE email = \'' . $email . '\''
