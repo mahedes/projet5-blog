@@ -39,10 +39,13 @@
         <p class="alert alert-success" role="alert">{{ session["flash"] }}</p>
       {% endif %}
 
+      {% if session["error"] %}
+        <p class="alert alert-danger" role="alert">{{ session["error"] }}</p>
+      {% endif %}
+
       {% block body %}{% endblock %}
     </div>
     {% include 'footer.html.twig' %}
-    {% include 'scroll-top.html.twig' %}
 
         <!-- jQuery -->
     <script src="vendor/jquery/jquery.min.js"></script>

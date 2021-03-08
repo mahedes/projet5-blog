@@ -22,7 +22,7 @@
                     <a href="index.php?action=blog">Blog</a>
                 </li>
 
-                {% if session %}
+                {% if session['auth'] %}
                     <li class="page-scroll">
                         <a href="index.php?action=logout">Logout</a>
                     </li>
