@@ -16,17 +16,28 @@
                     <a href="#page-top"></a>
                 </li>
                 <li class="page-scroll">
-                    <a href="index.php">Accueil</a>
+                    <a href="index.php">Home</a>
                 </li>
                 <li class="page-scroll">
                     <a href="index.php?action=blog">Blog</a>
                 </li>
-                <li class="page-scroll">
-                    <a href="index.php?action=article">Post</a>
-                </li>
-                <li class="page-scroll">
-                    <a href="">Connexion/Inscription</a>
-                </li>
+
+                {% if session['auth'] %}
+                    <li class="page-scroll">
+                        <a href="index.php?action=logout">Logout</a>
+                    </li>
+                    <li class="page-scroll">
+                       <p class="alert alert-info" role="alert" class="hello">Hi {{ session["pseudo"] }} !</p>
+                    </li>
+                {% else %}
+                    <li class="page-scroll">
+                        <a href="index.php?action=register">Register</a>
+                    </li>
+                    <li class="page-scroll">
+                        <a href="index.php?action=login">Login</a>
+                    </li>
+                {% endif %}
+
             </ul>
         </div>
         <!-- /.navbar-collapse -->

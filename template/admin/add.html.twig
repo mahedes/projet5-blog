@@ -1,0 +1,45 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Add Post{% endblock %}
+
+{% block body %}
+
+<div class="container post">
+    <div class="row">
+        <div class="col-lg-8 col-lg-offset-2">
+            <form id="contactForm" method="post" action="index.php?action=admin/add-post/newPostSubmitted">
+                
+                <h3 class="admin-title">Add Post</h3>
+
+                <div class="row control-group">
+                    <div class="form-group col-xs-12 floating-label-form-group controls">
+                        <label>Title</label>
+                        <input rows="5" class="form-control" type="text" id="title" name="title" placeholder="Write title here" required><br>
+                    </div>
+                </div>
+
+                <div class="row control-group">
+                  <div class="form-group col-xs-12 floating-label-form-group controls">
+                      <label>Short Description</label>
+                      <input rows="5" class="form-control" type="text" id="chapo" name="chapo" placeholder="Write short description here" required><br>
+                  </div>
+                </div>
+
+                <div class="row control-group">
+                  <div class="form-group col-xs-12 floating-label-form-group controls">
+                      <label>Content</label>
+                      <textarea rows="5" class="form-control" id="content" name="content" placeholder="Write content here" required></textarea><br>
+                  </div>
+                </div>
+                <br>
+                <div class="row">
+                    <div class="form-group col-xs-12">
+                        <input type="submit" class="btn btn-success btn-lg" value="Add new post">
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

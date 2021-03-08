@@ -31,14 +31,21 @@
     <![endif]-->
 
 </head>
-  <body id="page-top" class="index">
+  <body id="page-top" class="index" style="padding-top: 100px;">
     {% include 'navbar.html.twig' %}
 
-    <div id="main">
-    {% block body %}{% endblock %}
+    <div id="main" class="container">
+      {% if session["flash"] %}
+        <p class="alert alert-success" role="alert">{{ session["flash"] }}</p>
+      {% endif %}
+
+      {% if session["error"] %}
+        <p class="alert alert-danger" role="alert">{{ session["error"] }}</p>
+      {% endif %}
+
+      {% block body %}{% endblock %}
     </div>
     {% include 'footer.html.twig' %}
-    {% include 'scroll-top.html.twig' %}
 
         <!-- jQuery -->
     <script src="vendor/jquery/jquery.min.js"></script>
@@ -51,10 +58,10 @@
 
     <!-- Contact Form JavaScript -->
     <script src="js/jqBootstrapValidation.js"></script>
-    <script src="js/contact_me.js"></script>
+    {# <script src="js/contact_me.js"></script> #}
 
     <!-- Theme JavaScript -->
-    <script src="js/freelancer.min.js"></script>
+    <script src="js/freelancer.js"></script>
   
   </body>
 </html>

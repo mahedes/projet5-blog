@@ -1,0 +1,73 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Post{% endblock %}
+
+{% block body %} 
+    <div class="container post">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2">
+                <div class="modal-body">
+                    <h2>{{ postId.title}}</h2>
+                    <p class="chapo">{{ postId.chapo}}</p>
+                    <hr class="star-primary">
+                    <img src="img/portfolio/cake.png" class="img-responsive img-centered" alt="">
+                    
+                    <div class="content-post">
+                        <p>{{ postId.content}}</p>
+                    </div>
+                    
+
+                    <ul class="list-inline item-details">
+                        <li>Author:
+                            <strong>{{ postId.author.pseudo }}</strong>
+                        </li>
+                        <li>Created at:
+                            <strong> 
+                                <a href="#">{{ postId.createdAt|date("m/d/Y \\a\\t g:ia")}}</a>
+                            </strong>
+                        </li>
+                        {% if postId.updatedAt != null %}
+                        <li>Last updated:
+                            <strong> 
+                                <a href="#">{{ postId.updatedAt|date("m/d/Y \\a\\t g:ia")}}</a>
+                            </strong>
+                        </li>
+                        {% endif %}
+                    </ul>
+                </div>
+                <hr class="star-primary">
+                {% if session %}
+                <form id="contactForm" action="index.php?action=add-comment&amp;postId={{postId.id}}" method="post">
+                    <h3>Let a comment</h3>
+                    <div class="row control-group">
+                        <div class="form-group col-xs-12 floating-label-form-group controls">
+                            <label>Comment</label>
+                            <textarea name="coms" rows="5" class="form-control" placeholder="Write your comment here" id="message" required></textarea>
+                        </div>
+                    </div>
+                    <br>
+                    <div class="row">
+                        <div class="form-group col-xs-12">
+                            <input type="submit" class="btn btn-success btn-lg" value="Send">
+                        </div>
+                    </div>
+                </form>
+                {% else %}
+                    <h3 class="alert alert-danger" role="alert">Let a comment >> <a href="index.php?action=login">Login required</a></h3>
+                    
+                {% endif %}
+                
+
+                {% for comment in postId.comments %}
+                    {% if comment.validationStatus == true %}
+                        <div>
+                            <p>Author : {{ comment.author }} | {{ comment.createdAt|date("m/d/Y \\à g:ia")  }}</p>
+                            <p>{{ comment.content }}</p>
+                            <hr>
+                        </div>
+                    {% endif %} 
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+{% endblock %}
