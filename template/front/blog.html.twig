@@ -26,7 +26,11 @@
                                     
                     <h3>{{ post.title }}</h3>
                     <ul class="list-inline item-details">
-                        <li>Date:
+                        <li>Created at:
+                            <strong><a href="#">{{ post.createdAt|date("m/d/Y \\a\\t g:ia") }}</a>
+                            </strong>
+                        </li>
+                        <li>Updated at:
                             <strong><a href="#">{{ post.updatedAt|date("m/d/Y \\a\\t g:ia") }}</a>
                             </strong>
                         </li>
