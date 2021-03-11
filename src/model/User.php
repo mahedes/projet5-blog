@@ -4,84 +4,84 @@ namespace App\model;
 
 class User
 {
-  private $idUser;
-  private $pseudo;
-  private $name;
-  private $firstname;
-  private $email;
-  private $password;
-  private $adminStatus;
-  private $createdAt;
+    private $_idUser;
+    private $_pseudo;
+    private $_name;
+    private $_firstname;
+    private $_email;
+    private $_password;
+    private $_adminStatus;
+    private $_createdAt;
 
-  public function getId()
-  {
-    return $this->idUser;
-  }
-  public function setId(int $idUser)
-  {
-    $this->idUser = $idUser;
-  }
+    public function getId()
+    {
+        return $this->_idUser;
+    }
+    public function setId(int $_idUser)
+    {
+        $this->_idUser = $_idUser;
+    }
 
-  public function getPseudo()
-  {
-    return $this->pseudo;
-  }
-  public function setPseudo($pseudo)
-  {
-    $this->pseudo = $pseudo;
-  }
+    public function getPseudo()
+    {
+        return $this->_pseudo;
+    }
+    public function setPseudo($_pseudo)
+    {
+        $this->_pseudo = $_pseudo;
+    }
 
-  public function getName()
-  {
-    return $this->name;
-  }
-  public function setName($name)
-  {
-    $this->name = $name;
-  }
+    public function getName()
+    {
+        return $this->_name;
+    }
+    public function setName($_name)
+    {
+        $this->_name = $_name;
+    }
 
-  public function getFirstname()
-  {
-    return $this->firstname;
-  }
-  public function setFirstname($firstname)
-  {
-    $this->firstname = $firstname;
-  }
+    public function getFirstname()
+    {
+        return $this->_firstname;
+    }
+    public function setFirstname($_firstname)
+    {
+        $this->_firstname = $_firstname;
+    }
 
-  public function getEmail()
-  {
-    return $this->email;
-  }
-  public function setEmail($email)
-  {
-    $this->email = $email;
-  }
+    public function getEmail()
+    {
+        return $this->_email;
+    }
+    public function setEmail($_email)
+    {
+        $this->_email = $_email;
+    }
 
-  public function getPassword()
-  {
-    return $this->password;
-  }
-  public function setPassword($password)
-  {
-    $this->password = $password;
-  }
+    public function getPassword()
+    {
+        return $this->_password;
+    }
+    public function setPassword($_password)
+    {
+        $this->_password = $_password;
+    }
 
-  public function getAdminStatus()
-  {
-    return $this->adminStatus;
-  }
-  public function setAdminStatus($adminStatus)
-  {
-    $this->adminStatus = $adminStatus;
-  }
+    public function getAdminStatus()
+    {
+        return $this->_adminStatus;
+    }
+    public function setAdminStatus($_adminStatus)
+    {
+        $this->_adminStatus = $_adminStatus;
+    }
 
-  public function getCreatedAt()
-  {
-    return $this->createdAt;
-  }
-  public function setCreatedAt($createdAt)
-  {
-    $this->createdAt = $createdAt;
-  }
+    public function getCreatedAt()
+    {
+        return $this->_createdAt;
+    }
+    public function setCreatedAt($_createdAt)
+    {
+        $this->_createdAt = $_createdAt;
+    }
 }

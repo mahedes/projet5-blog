@@ -4,93 +4,93 @@ namespace App\model;
 
 class Post
 {
-  private $idPost;
-  private $title;
-  private $author;
-  private $createdAt;
-  private $updatedAt;
-  private $chapo;
-  private $content;
-  /**
-   * @var array < Comment >
-   */
-  private $comments;
+    private $_idPost;
+    private $_title;
+    private $_author;
+    private $_createdAt;
+    private $_updatedAt;
+    private $_chapo;
+    private $_content;
+    /**
+     * @var array < Comment >
+     */
+    private $_comments;
 
-  public function getId()
-  {
-    return $this->idPost;
-  }
-  public function setId(int $idPost)
-  {
-    $this->idPost = $idPost;
-  }
+    public function getId()
+    {
+        return $this->_idPost;
+    }
+    public function setId(int $_idPost)
+    {
+        $this->_idPost = $_idPost;
+    }
 
-  public function getTitle()
-  {
-    return $this->title;
-  }
+    public function getTitle()
+    {
+        return $this->_title;
+    }
 
-  public function setTitle($title)
-  {
-    $this->title = $title;
-  }
+    public function setTitle($_title)
+    {
+        $this->_title = $_title;
+    }
 
-  public function getCreatedAt()
-  {
-    return $this->createdAt;
-  }
+    public function getCreatedAt()
+    {
+        return $this->_createdAt;
+    }
 
-  public function setCreatedAt($createdAt)
-  {
-    $this->createdAt = $createdAt;
-  }
+    public function setCreatedAt($_createdAt)
+    {
+        $this->_createdAt = $_createdAt;
+    }
 
-  public function getUpdatedAt()
-  {
-    return $this->updatedAt;
-  }
+    public function getUpdatedAt()
+    {
+        return $this->_updatedAt;
+    }
 
-  public function setUpdatedAt($updatedAt)
-  {
-    $this->updatedAt = $updatedAt;
-  }
+    public function setUpdatedAt($_updatedAt)
+    {
+        $this->_updatedAt = $_updatedAt;
+    }
 
-  public function getChapo()
-  {
-    return $this->chapo;
-  }
+    public function getChapo()
+    {
+        return $this->_chapo;
+    }
 
-  public function setChapo($chapo)
-  {
-    $this->chapo = $chapo;
-  }
+    public function setChapo($_chapo)
+    {
+        $this->_chapo = $_chapo;
+    }
 
-  public function getContent()
-  {
-    return $this->content;
-  }
+    public function getContent()
+    {
+        return $this->_content;
+    }
 
-  public function setContent($content)
-  {
-    $this->content = $content;
-  }
+    public function setContent($_content)
+    {
+        $this->_content = $_content;
+    }
 
-  public function getAuthor()
-  {
-    return $this->author;
-  }
-  public function setAuthor($author)
-  {
-    $this->author = $author;
-  }
+    public function getAuthor()
+    {
+        return $this->_author;
+    }
+    public function setAuthor($_author)
+    {
+        $this->_author = $_author;
+    }
 
-  // OneToMany
-  public function getComments()
-  {
-    return $this->comments;
-  }
-  public function setComments(Comment $comments)
-  {
-    $this->comments[] = $comments;
-  }
+    // OneToMany
+    public function getComments()
+    {
+        return $this->_comments;
+    }
+    public function setComments(Comment $_comments)
+    {
+        $this->_comments[] = $_comments;
+    }
 }
