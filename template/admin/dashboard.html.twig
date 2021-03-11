@@ -30,8 +30,8 @@
           <td>{{ comment.post }}</td>
           <td>{{ comment.content }}</td>
           <td>
-              <a href="index.php?action=admin/allow-comment&amp;idComment={{comment.id}}" type="button" class="btn btn-success">Validate</a>
-              <a href="index.php?action=admin/delete-comment&amp;idComment={{comment.id}}" type="button" class="btn btn-danger">Delete</a>
+              <a href="index.php?action=admin/allow-comment&amp;idComment={{comment.id}}"  class="btn btn-success">Validate</a>
+              <a href="index.php?action=admin/delete-comment&amp;idComment={{comment.id}}"  class="btn btn-danger">Delete</a>
           </td>
         </tr>
         {% endif %}
@@ -45,7 +45,7 @@
 
 {% endif %}
 <h2 class="admin-title">Posts List</h2>
-<a href="index.php?action=admin/add-post" type="button" class="btn btn-success">Add new post</a>
+<a href="index.php?action=admin/add-post"  class="btn btn-success">Add new post</a>
 
 <div class="tab-admin">
   <table class="table table-dark table-striped admin-tab">
@@ -69,11 +69,11 @@
         <td>{{ post.createdAt }}</td>
         <td>{{ post.updatedAt }}</td>
         <td>
-            <a href="index.php?action=article&amp;id={{post.id}}" type="button" class="btn btn-info">Show</a>
-            <a href="index.php?action=admin/edit-post&amp;id={{post.id}}" type="button" class="btn btn-warning">Edit</a>
+            <a href="index.php?action=article&amp;id={{post.id}}"  class="btn btn-info">Show</a>
+            <a href="index.php?action=admin/edit-post&amp;id={{post.id}}"  class="btn btn-warning">Edit</a>
             
-            <a type="button" class="btn btn-danger delete-button">Delete</a>
-            <a type="button" class="btn btn-danger delete-confirmation" href="index.php?action=admin/delete-post&amp;id={{post.id}}">Confirm Deletion ?</a>
+            <a  class="btn btn-danger delete-button">Delete</a>
+            <a  class="btn btn-danger delete-confirmation" href="index.php?action=admin/delete-post&amp;id={{post.id}}">Confirm Deletion ?</a>
         </td>
       </tr>
       {% endfor %}
